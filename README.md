@@ -48,7 +48,7 @@ ball.update()             player1.paint(Graphics g)
 Game2PMode.paint()--------------+
 </pre>
     
-update()：做完判斷（按鍵輸入或碰撞）後設定角色的新的座標。
+update()：做完判斷（按鍵輸入或碰撞）後設定角色的新的座標。</br>
 paint(Graphics g)：`g`為`Game2PMode`的畫筆物件，且已經跟Display的畫布連結，所以角色物件的paint()也會呈現在視窗上。 
 
     
