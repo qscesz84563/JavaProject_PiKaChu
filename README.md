@@ -33,18 +33,18 @@
 
 ## Game Loop
 
-initialize
-|
-ˇ
-Game2PMode.update()<------------+       
-|                               |
-ˇ                               |
-player1.update()          ball.paint(Graphics g)
-player2.update()          player2.paint(Graphics g)
-ball.update()             player1.paint(Graphics g)
-|                               ＾
-ˇ                               |
-Game2PMode.paint()--------------+
+initialize<br/>
+|<br/>
+ˇ<br/>
+Game2PMode.update()<------------+<br/>     
+|                               |<br/>
+ˇ                               |<br/>
+player1.update()          ball.paint(Graphics g)<br/>
+player2.update()          player2.paint(Graphics g)<br/>
+ball.update()             player1.paint(Graphics g)<br/>
+|                               ＾<br/>
+ˇ                               |<br/>
+Game2PMode.paint()--------------+<br/>
     
 update()：做完判斷（按鍵輸入或碰撞）後設定角色的新的座標。
 paint(Graphics g)：`g`為`Game2PMode`的畫筆物件，且已經跟Display的畫布連結，所以角色物件的paint()也會呈現在視窗上。 
