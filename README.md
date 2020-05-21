@@ -18,9 +18,24 @@
     
 ## Class Discription
 
-- Launcher：與遊戲的接口，之後可以在此新增不同模式的選擇，開啟不同模式的主遊戲物件。
-- Display：建立視窗(JFRame)以及畫布(Canvas)物件，
-- KeyManager：將按下的按鍵用布林陣列`keys[256]`儲存起來。e.g. `W`，keycode = 87，當我按下`W`，`keys[87]` = true。
-- Pikachu1P：依照按鍵方向行動。`W`/ up, `S`/ down, `A`/ left, `D`/ right, `Space` / spike。
-- Pikachu2P：依照按鍵方向行動。`up_arrow`/ up, `down_arrow`/ down, `left_arrow`/ left, `right_arrow`/ right, `right_shift` / spike。
-- Ball：
+- Launcher：與遊戲的接口，之後可以在此新增不同模式的選擇，開啟不同模式的主遊戲物件。  
+- Display：建立視窗(JFRame)以及畫布(Canvas)物件。  
+- KeyManager：將按下的按鍵用布林陣列`keys[256]`儲存起來。e.g. `W`，keycode = 87，當我按下`W`，`keys[87]` = true，鬆鍵後`keys[87]` = false。  
+- Pikachu1P：依照按鍵方向行動。`W`/ up, `S`/ down, `A`/ left, `D`/ right, `Space` / spike。  
+- Pikachu2P：依照按鍵方向行動。`up_arrow`/ up, `down_arrow`/ down, `left_arrow`/ left, `right_arrow`/ right, `right_shift` / spike。當角色往上跳起，為了避免二段跳的可能，需要等落地後才會繼續對往上的操作有反應。  
+- Ball：判斷碰撞，主要行為。。。  
+    1. 碰到左邊界：使`x`速度相反，`y`速度為正（往下掉）。  
+    2. 碰到右邊界：同碰到左邊界。  
+    3. 碰到上邊界：`x`速度維持，`y`速度為正（往下掉）。  
+    4. 碰到下邊界：`x`速度維持，`y`速度為負（往上一段距離），因為`y`速度每次更新會加一，會有撞到地板反彈的效果（不會高於網子）。（因為勝負是用球是否落地來判斷，之後可能會拿掉。）  
+    5. 碰到網子（目前有bug）  
+    
+    
+ 
+    
+    
+    
+    
+    
+    
+    
