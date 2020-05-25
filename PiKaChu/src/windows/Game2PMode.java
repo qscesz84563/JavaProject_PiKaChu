@@ -5,9 +5,9 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferStrategy;
 
-import chracter.Ball;
-import chracter.Pikachu1P;
-import chracter.Pikachu2P;
+import character.Ball;
+import character.Pikachu1P;
+import character.Pikachu2P;
 import control.KeyManager;
 
 public class Game2PMode implements Runnable{
@@ -23,9 +23,9 @@ public class Game2PMode implements Runnable{
 	
 	private boolean running = false;
 	
-	private Pikachu1P player1 = new Pikachu1P(this, 0, 300, 80, 100);
-	private Pikachu2P player2 = new Pikachu2P(this, 950, 300, 80, 100);
-	private Ball ball = new Ball(this, 0, 0, 25, 25);
+	private Pikachu1P player1;
+	private Pikachu2P player2;
+	private Ball ball;
 	
 	private Rectangle net, landing;
 	
@@ -35,6 +35,9 @@ public class Game2PMode implements Runnable{
 		this.title = title;
 		this.width = width;
 		this.height = height;
+		player1 = new Pikachu1P(this, 0, 300, 80, 100);
+		player2 = new Pikachu2P(this, 950, 300, 80, 100);
+		ball = new Ball(this, 0, 0, 25, 25);
 		net = new Rectangle(475, 400 - 150, 50, 150);
 		landing = new Rectangle(0, 400, width, 10);
 		keyManager = new KeyManager();
