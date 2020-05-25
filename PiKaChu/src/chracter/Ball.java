@@ -9,7 +9,7 @@ public class Ball {
 	
 	private Game2PMode game;
 	private int x, y, width, height;
-	private int moveSpeedX = 0, moveSpeedY = 5, temp_vx = 0, temp_vy = 5;
+	private int moveSpeedX = 0, moveSpeedY = 5;
 	
 	public Ball(Game2PMode game, int x, int y, int width, int height) {
 		this.game = game;
@@ -26,17 +26,25 @@ public class Ball {
 			moveSpeedY = 5;
 		}
 		//left side of net
-		if((x + width > game.getNet().x) & (x + width < game.getNet().x + game.getNet().width/2) & moveSpeedX > 0) {
+		if((x + width > game.getNet().x) & (x + width <= game.getNet().x + game.getNet().width) & moveSpeedX > 0) {
 			if(y > game.getNet().y - height) {
 				x = game.getNet().x - width;
 				moveSpeedX = -5;
 			}
+			else if (y == game.getNet().y - height){
+				y = game.getNet().y - height;
+				moveSpeedY = -5;
+			}
 		}
 		//right side of net
-		else if((x < game.getNet().x + game.getNet().width) & (x > game.getNet().x + game.getNet().width/2) & moveSpeedX < 0) {
+		else if((x < game.getNet().x + game.getNet().width) & (x >= game.getNet().x) & moveSpeedX < 0) {
 			if(y > game.getNet().y - height) {
 				x = game.getNet().x + game.getNet().width;
 				moveSpeedX = 5;
+			}
+			else if (y == game.getNet().y - height){
+				y = game.getNet().y - height;
+				moveSpeedY = -5;
 			}
 		}
 		//check out of border
