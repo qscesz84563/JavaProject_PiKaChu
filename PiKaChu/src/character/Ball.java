@@ -69,12 +69,12 @@ public class Ball {
 		check_collision_with_player1();
 		check_collision_with_player2(); 
 		
-		if(x + 100 > game.width & spiking) {
+		if(x + 100 > game.width & spiking & moveSpeedX > 0) {
 			x = game.width - width;
 			moveSpeedX = -5;
 			spiking = false;
 		}
-		else if(x - 100 < 0 & spiking) {
+		else if(x - 100 < 0 & spiking & moveSpeedX < 0) {
 			x = 0;
 			moveSpeedX = 5;
 			spiking = false;
@@ -94,7 +94,7 @@ public class Ball {
 		
 		if((x > px - width) & (x + width < px + pw + width) & (y > py - height) & (y < game.getLanding().y - height)) {
 			game.getPlayer1P().setHitCount(hc + 1);
-			spiking = true;
+			spiking = false;
 			if(game.getKeyManger().left_1P) {
 				moveSpeedX = -15;
 				moveSpeedY = -20;
