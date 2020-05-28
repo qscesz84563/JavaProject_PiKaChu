@@ -25,6 +25,7 @@ public class Pikachu1P {
 			jumping = true;
 			goingUp = true;
 			goingDown = false;
+			moveSpeedY = -15;
 		}
 //		if(game.getKeyManger().down_1P & !jumping) {
 //			moveSpeedY = 5;
@@ -40,7 +41,7 @@ public class Pikachu1P {
 		}
 		if(jumping) {
 			if(goingUp){
-				moveSpeedY = -7;
+				moveSpeedY++;
 				if(y <= 150) {
 					goingUp = false;
 					goingDown = true;
@@ -50,7 +51,6 @@ public class Pikachu1P {
 				goingDown = false;
 			}
 			y += moveSpeedY;
-			moveSpeedY++;
 			if(y + height >= game.getLanding().y) {
 				jumping = false;
 				goingDown = false;
