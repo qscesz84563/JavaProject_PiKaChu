@@ -32,28 +32,22 @@ public class Ball {
 			spiking = false;
 			
 		}
+		check_collision_with_player1();
+		check_collision_with_player2(); 
 		//left side of net
-		if((x + width > game.getNet().x) & (x + width <= game.getNet().x + game.getNet().width) & moveSpeedX > 0) {
+		if((x + width > game.getNet().x) & (x + width <= game.getNet().x + game.getNet().width) & moveSpeedX > 0 & !spiking) {
+			spiking = false;
 			if(y > game.getNet().y - height) {
 				x = game.getNet().x - width;
 				moveSpeedX = -5;
 			}
-			//top of net, a lil bit rebounce
-			else if (y == game.getNet().y - height){
-				y = game.getNet().y - height;
-				moveSpeedY = -5;
-			}
 		}
 		//right side of net
-		else if((x < game.getNet().x + game.getNet().width) & (x >= game.getNet().x) & moveSpeedX < 0) {
+		else if((x < game.getNet().x + game.getNet().width) & (x >= game.getNet().x) & moveSpeedX < 0 & !spiking) {
+			spiking = false;
 			if(y > game.getNet().y - height) {
 				x = game.getNet().x + game.getNet().width;
 				moveSpeedX = 5;
-			}
-			//top of net, a lil bit rebounce
-			else if (y == game.getNet().y - height){
-				y = game.getNet().y - height;
-				moveSpeedY = -5;
 			}
 		}
 		//check out of border
@@ -70,25 +64,28 @@ public class Ball {
 		else if(y < 0) {
 			y = 0;
 			moveSpeedY = 5;
+			spiking = false;
 		}
 		else if(y + height > game.getLanding().y) {
 			y = game.getLanding().y - height;
 			moveSpeedY = -3;
+			spiking = false;
 		}
 		
-		check_collision_with_player1();
-		check_collision_with_player2(); 
+		if((x + 100 > game.getNet().x) & (x + 100 < game.getNet().x + game.getNet().width + 100) 
+				& spiking & moveSpeedX > 0 & (y + 10 > game.getNet().y - height)) {
+			x = game.getNet().x - width;
+			moveSpeedX = -5;
+			spiking = false;
+		}
+		else if((x - 100 < game.getNet().x + game.getNet().width) & (x - 100 > game.getNet().x - 100) 
+				& spiking & moveSpeedX < 0 & (y + 10 > game.getNet().y - height)) {
+			x = game.getNet().x + game.getNet().width;
+			moveSpeedX = 5;
+			spiking = false;
+		}
 		
-//		if(x + 100 > game.width & spiking & moveSpeedX > 0) {
-//			x = game.width - width;
-//			moveSpeedX = -5;
-//			spiking = false;
-//		}
-//		else if(x - 100 < 0 & spiking & moveSpeedX < 0) {
-//			x = 0;
-//			moveSpeedX = 5;
-//			spiking = false;
-//		}
+		
 		
 		x += moveSpeedX;
 		y += moveSpeedY;
@@ -104,16 +101,18 @@ public class Ball {
 		
 		if((x > px - width) & (x + width < px + pw + width) & (y > py - height) & (y < game.getLanding().y - height)) {
 			game.getPlayer1P().setHitCount(hc + 1);
-			spiking = false;
 			if(game.getKeyManger().left_1P) {
 				moveSpeedX = vHitLeft;
 				moveSpeedY = vHitUp;
+				spiking = false;
 			}else if(game.getKeyManger().right_1P) {
 				moveSpeedX = vHitRight;
 				moveSpeedY = vHitUp;
+				spiking = false;
 			}else {
 				moveSpeedX = 0;
 				moveSpeedY = vHitUp;
+				spiking = false;
 			}
 			if(game.getKeyManger().up_1P & game.getKeyManger().spike_1P) {
 				if(game.getPlayer1P().getHitCount() > 5) {
@@ -124,6 +123,7 @@ public class Ball {
 				else {
 					moveSpeedX = vSpikeRight;
 					moveSpeedY = 0;
+					spiking = false;
 				}
 				game.getPlayer1P().setHitCount(0);
 			}
@@ -139,16 +139,18 @@ public class Ball {
 		
 		if((x > px - width) & (x + width < px + pw + width) & (y > py - height) & (y < game.getLanding().y - height)) {
 			game.getPlayer2P().setHitCount(hc + 1);
-			spiking = false;
 			if(game.getKeyManger().left_2P) {
 				moveSpeedX = vHitLeft;
 				moveSpeedY = vHitUp;
+				spiking = false;
 			}else if(game.getKeyManger().right_2P) {
 				moveSpeedX = vHitRight;
 				moveSpeedY = vHitUp;
+				spiking = false;
 			}else {
 				moveSpeedX = 0;
 				moveSpeedY = vHitUp;
+				spiking = false;
 			}
 			if(game.getKeyManger().up_2P & game.getKeyManger().spike_2P) {
 				if(game.getPlayer2P().getHitCount() > 5) {
@@ -159,6 +161,7 @@ public class Ball {
 				else {
 					moveSpeedX = vSpikeLeft;
 					moveSpeedY = 0;
+					spiking = false;
 				}
 				game.getPlayer2P().setHitCount(0);
 			}
