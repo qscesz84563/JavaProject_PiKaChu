@@ -3,16 +3,20 @@ package character;
 import java.awt.Color;
 import java.awt.Graphics;
 
-import windows.Game2PMode;
+import volleyball.Game2PMode;
+import javax.swing.*;
 
 public class Pikachu1P {
 	
+	private JFrame frame;
 	private Game2PMode game;
 	private int x, y, width, height, hitCount = 0;
 	private int moveSpeedX = 5, moveSpeedY = 5;
 	private boolean jumping = false, goingUp = false, goingDown = false;
 	
-	public Pikachu1P(Game2PMode game, int x, int y, int width, int height) {
+	
+	public Pikachu1P(JFrame frame, Game2PMode game,int x, int y, int width, int height) {
+		this.frame = frame;
 		this.game = game;
 		this.x = x;
 		this.y = y;
@@ -25,7 +29,7 @@ public class Pikachu1P {
 			jumping = true;
 			goingUp = true;
 			goingDown = false;
-			moveSpeedY = -15;
+			moveSpeedY = -30;
 		}
 //		if(game.getKeyManger().down_1P & !jumping) {
 //			moveSpeedY = 5;
@@ -34,10 +38,12 @@ public class Pikachu1P {
 		if(game.getKeyManger().left_1P) {
 			moveSpeedX = -7;
 			x += moveSpeedX;
+			game.player1.setLocation(x, y);
 		}
 		if(game.getKeyManger().right_1P){
 			moveSpeedX = 7;
 			x += moveSpeedX;
+			game.player1.setLocation(x, y);
 		}
 		if(jumping) {
 			if(goingUp){
@@ -47,49 +53,42 @@ public class Pikachu1P {
 					goingDown = true;
 				}
 			}else if(goingDown){
-				moveSpeedY = 7;
+				moveSpeedY = 10;
 				goingDown = false;
 			}
 			y += moveSpeedY;
-			if(y + height >= game.getLanding().y) {
+			moveSpeedY++;
+			game.player1.setLocation(x, y);
+			if(y + height >= game.height) {
 				jumping = false;
 				goingDown = false;
 			}
 		}
 		
 		//check out of border
-		if(x < 0)
+		if(x < 0) {
 			x = 0;
-		if(y < 0)
+			game.player1.setLocation(x, y);
+		}
+			
+		if(y < 0) {
 			y = 0;
-		if(y > game.getLanding().y - height)
-			y = game.getLanding().y - height;
+			game.player1.setLocation(x, y);
+		}
+			
+		if(y > game.height - height -30) {
+			y = game.height - height -30;
+			game.player1.setLocation(x, y);
+		}
+			
 		//check touch net 
-		if(x + width > game.getNet().x)
-			x = game.getNet().x - width;
+		if(x + width > game.getNet().getLocation().x) {
+			x = game.getNet().getLocation().x - width;
+			game.player1.setLocation(x, y);
+		}
+			
 	}
 	
-	public void paint(Graphics g) {
-		g.setColor(Color.yellow);
-		g.fillRect(x, y, width, height);
-		
-		for(int i = 125, j = hitCount; i <250; i+=25, j--) {
-			if(j <= 0) {
-				g.setColor(Color.black);
-				g.drawRect(i, 425, 25, 25);
-			}
-			else {
-				g.setColor(Color.blue);
-				g.fillRect(i, 425, 25, 25);
-			}
-		}
-		
-		for(int i = 125; i < 250; i+=25) {
-			g.setColor(Color.black);
-			g.drawRect(i, 425, 25, 25);
-		}
-	}
-
 	public int getHitCount() {
 		return hitCount;
 	}
