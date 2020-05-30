@@ -2,116 +2,123 @@ package character;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.Dictionary;
+import java.util.Hashtable;
 
 import volleyball.Game2PMode;
 import javax.swing.*;
 
-public class Pikachu2P {
+public class Pikachu2P extends Player{
 	
-	private JFrame frame;
 	private Game2PMode game;
-	private int x, y, width, height, hitCount = 0;
-	private int moveSpeedX = 5, moveSpeedY = 5;
-	private boolean jumping = false, goingUp = false, goingDown = false;
 
+	protected Dictionary<String, Integer> feature_num = new Hashtable<String, Integer>();
+	protected Dictionary<String, Boolean> feature_bool = new Hashtable<String, Boolean>();
 	
 	public Pikachu2P(JFrame frame, Game2PMode game, int x, int y, int width, int height) {
-		this.frame = frame;
+		super(frame);
 		this.game = game;
-		this.x = x;
-		this.y = y;
-		this.width = width;
-		this.height = height;
+
+		feature_num.put("x", x);
+		feature_num.put("y", y);
+		feature_num.put("width", width);
+		feature_num.put("height", height);
+		feature_num.put("hitCount", 0);
+		feature_num.put("moveSpeedX", 5);
+		feature_num.put("moveSpeedY", 5);
+		
+		feature_bool.put("jumping", false);
+		feature_bool.put("goingUp", false);
+		feature_bool.put("goingDown", false);
 	}
-	
 	public void update() {
-		if(game.getKeyManger().up_2P & !jumping) {
-			jumping = true;
-			goingUp = true;
-			goingDown = false;
-			moveSpeedY = -30;
+		if(game.getKeyManger().up_2P & !feature_bool.get("jumping")) {
+			feature_bool.put("jumping", true);
+			feature_bool.put("goingUp", true);
+			feature_bool.put("goingDown", false);
 		}
-//		if(game.getKeyManger().down_2P & !jumping) {
-//			moveSpeedY = 5;
-//			y += moveSpeedY;
-//		}
 		if(game.getKeyManger().left_2P) {
-			moveSpeedX = -7;
-			x += moveSpeedX;
-			game.player2.setLocation(x, y);
+			feature_num.put("moveSpeedX", -7);
+			feature_num.put("x", feature_num.get("x") + feature_num.get("moveSpeedX"));
+			
+			game.player2.setLocation(feature_num.get("x"), feature_num.get("y"));
 		}
 		if(game.getKeyManger().right_2P){
-			moveSpeedX = 7;
-			x += moveSpeedX;
-			game.player2.setLocation(x, y);
+			feature_num.put("moveSpeedX", 7);
+			feature_num.put("x", feature_num.get("x") + feature_num.get("moveSpeedX"));
+			
+			game.player2.setLocation(feature_num.get("x"), feature_num.get("y"));
 		}
-		if(jumping) {
-			if(goingUp){
-				moveSpeedY++;
-				if(y <= 150) {
-					goingUp = false;
-					goingDown = true;
+		if(feature_bool.get("jumping")) {
+			if(feature_bool.get("goingUp")){
+				feature_num.put("moveSpeedY", -15);
+				if(feature_num.get("y") <= 200) {
+					feature_bool.put("goingUp", false);
+					feature_bool.put("goingDown", true);
 				}
-			}else if(goingDown){
-				moveSpeedY = 10;
-				goingDown = false;
+			} else if(feature_bool.get("goingDown")){
+				feature_num.put("moveSpeedY", 15);
+				feature_bool.put("goingDown", false);
 			}
-			y += moveSpeedY;
-			moveSpeedY++;
-			game.player2.setLocation(x, y);
-			if(y + height >= game.height) {
-				jumping = false;
-				goingDown = false;
+			feature_num.put("y", feature_num.get("y") + feature_num.get("moveSpeedY"));
+			feature_num.put("moveSpeedY", feature_num.get("moveSpeedY") + 1);
+			game.player2.setLocation(feature_num.get("x"), feature_num.get("y"));
+
+			if(feature_num.get("y") + feature_num.get("height") >= game.height) {
+				feature_bool.put("jumping", false);
+				feature_bool.put("goingDown", false);
 			}
 		}
 		
 		//check out of border
-		if(x > game.width - width) {
-			x = game.width - width;
-			game.player2.setLocation(x, y);
+		if(feature_num.get("x") > game.width - feature_num.get("width")) {
+			feature_num.put("x", game.width - feature_num.get("width"));
+			game.player2.setLocation(feature_num.get("x"), feature_num.get("y"));
 		}
 			
-		if(y < 0) {
-			y = 0;
-			game.player2.setLocation(x, y);
+		if(feature_num.get("y") < 0) {
+			feature_num.put("y", 0);
+			game.player2.setLocation(feature_num.get("x"), feature_num.get("y"));
 		}
 			
-		if(y > game.height - height -30) {
-			y = game.height - height -30;
-			game.player2.setLocation(x, y);
+		if(feature_num.get("y") > game.height - feature_num.get("height") - 30) {
+			feature_num.put("y", game.height -feature_num.get("height") - 30);
+			game.player2.setLocation(feature_num.get("x"), feature_num.get("y"));
 		}
 			
 		//check touch net 
-		if(x < game.getNet().getLocation().x + game.getNet().getSize().width) {
-			x = game.getNet().getLocation().x + game.getNet().getSize().width;
-			game.player2.setLocation(x, y);
+		if(feature_num.get("x") < game.getNet().getLocation().x + game.getNet().getSize().width) {
+			feature_num.put("y", game.getNet().getLocation().x + game.getNet().getSize().width);
+			game.player2.setLocation(feature_num.get("x"), feature_num.get("y") );
 		}
 	}
 	
+	public void setHitCount(int hitCount) {
+		this.feature_num.put("hitCount", hitCount);
+	}
+	
+	
+	public int getHitCount() {
+		return feature_num.get("hitCount");
+	}
+
+
 	public int getX() {
-		return x;
+		return feature_num.get("x");
 	}
 
 
 	public int getY() {
-		return y;
+		return feature_num.get("y");
 	}
 
 
 	public int getWidth() {
-		return width;
+		return feature_num.get("width");
 	}
 
 
 	public int getHeight() {
-		return height;
-	}
-	
-	public int getHitCount() {
-		return hitCount;
-	}
-	
-	public void setHitCount(int hitCount) {
-		this.hitCount = hitCount;
+		return feature_num.get("height");
 	}
 }
