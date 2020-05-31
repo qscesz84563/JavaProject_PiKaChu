@@ -39,9 +39,11 @@ public class Game2PMode extends Game{
 			public void run() {
 				// TODO Auto-generated method stub
 				keyManager.update();
-				player1_class.update();
-				player2_class.update();
-				ball_class.update();
+				if(keyManager.pause == false) {
+					player1_class.update();
+					player2_class.update();
+					ball_class.update();
+				}
 			}
 		};
 		
