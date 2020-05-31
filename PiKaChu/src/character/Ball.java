@@ -5,19 +5,19 @@ import java.awt.Graphics;
 
 import javax.swing.JFrame;
 
-import volleyball.Game2PMode;
+import volleyball.*;
 import javax.swing.*;
 
 public class Ball {
 	private JFrame frame;
-	private Game2PMode game;
+	private Game game;
 	private int x, y, width, height;
 	private int moveSpeedX = 0, moveSpeedY = 5;
 	private boolean spiking = false;
 	private final int vHitRight = 15, vHitLeft = -15, vHitUp = -20,
 					  vSpikeRight = 30, vSpikeLeft = -30, vMaxRight = 100, vMaxLeft = -100;
 	
-	public Ball(JFrame frame, Game2PMode game, int x, int y, int width, int height) {
+	public Ball(JFrame frame, Game game, int x, int y, int width, int height) {
 		this.frame = frame;
 		this.game = game;
 		this.x = x;
@@ -27,7 +27,7 @@ public class Ball {
 	}
 	
 	public void update() {		
-		if(game.getKeyManger().restart) {
+		if(game.getKeyManager().restart) {
 			x = y = 0;
 			moveSpeedX = 0;
 			moveSpeedY = 5;
@@ -64,6 +64,7 @@ public class Ball {
 				game.ball.setLocation(x, y);
 			}
 		}
+		
 		//check out of border
 		if(x < 0 | (x - 100 < 0 & spiking & moveSpeedX < 0)) {
 			x = 0;
@@ -112,23 +113,22 @@ public class Ball {
 		int px = game.getPlayer1P().getX();
 		int py = game.getPlayer1P().getY();
 		int pw = game.getPlayer1P().getWidth();
-//		int ph = game.getPlayer1P().getHeight();
 		int hc = game.getPlayer1P().getHitCount();
 		
 		if((x > px - width) & (x + width < px + pw + width) & (y > py - height) & (y < 500 - height)) {
 			game.getPlayer1P().setHitCount(hc + 1);
 			spiking = false;
-			if(game.getKeyManger().left_1P) {
+			if(game.getKeyManager().left_1P) {
 				moveSpeedX = vHitLeft;
 				moveSpeedY = vHitUp;
-			}else if(game.getKeyManger().right_1P) {
+			}else if(game.getKeyManager().right_1P) {
 				moveSpeedX = vHitRight;
 				moveSpeedY = vHitUp;
 			}else {
 				moveSpeedX = 0;
 				moveSpeedY = vHitUp;
 			}
-			if(game.getKeyManger().up_1P & game.getKeyManger().spike_1P) {
+			if(game.getKeyManager().up_1P & game.getKeyManager().spike_1P) {
 				if(game.getPlayer1P().getHitCount() > 5) {
 					moveSpeedX = vMaxRight;
 					moveSpeedY = 10;
@@ -147,23 +147,22 @@ public class Ball {
 		int px = game.getPlayer2P().getX();
 		int py = game.getPlayer2P().getY();
 		int pw = game.getPlayer2P().getWidth();
-//		int ph = game.getPlayer2P().getHeight();
 		int hc = game.getPlayer2P().getHitCount();
 		
 		if((x > px - width) & (x + width < px + pw + width) & (y > py - height) & (y < 500 - height)) {
 			game.getPlayer2P().setHitCount(hc + 1);
 			spiking = false;
-			if(game.getKeyManger().left_2P) {
+			if(game.getKeyManager().left_2P) {
 				moveSpeedX = vHitLeft;
 				moveSpeedY = vHitUp;
-			}else if(game.getKeyManger().right_2P) {
+			}else if(game.getKeyManager().right_2P) {
 				moveSpeedX = vHitRight;
 				moveSpeedY = vHitUp;
 			}else {
 				moveSpeedX = 0;
 				moveSpeedY = vHitUp;
 			}
-			if(game.getKeyManger().up_2P & game.getKeyManger().spike_2P) {
+			if(game.getKeyManager().up_2P & game.getKeyManager().spike_2P) {
 				if(game.getPlayer2P().getHitCount() > 5) {
 					moveSpeedX = vMaxLeft;
 					moveSpeedY = 10;
