@@ -33,7 +33,7 @@ public class Ball {
 		//restart
 		if(game.getKeyManager().restart) {
 			
-			x = y = 0;
+			x = y = 100;
 			moveSpeedX = 0;
 			moveSpeedY = 5;
 			game.getPlayer1P().setHitCount(0);
