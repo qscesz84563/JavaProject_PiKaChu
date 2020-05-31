@@ -58,8 +58,8 @@ public abstract class Game{
 	public abstract KeyManager getKeyManager();
 	public abstract Player getPlayer1P();
 	public abstract Player getPlayer2P();
-
-	
+	public abstract int getBallX();
+	public abstract int getBallY();
 	
 	
 	

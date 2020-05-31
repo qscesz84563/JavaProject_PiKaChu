@@ -48,6 +48,11 @@ public class Launcher extends JFrame implements ActionListener, KeyListener{
 			GameClient gameClient = new GameClient(this, 1000, 500);
 			// gameServer.start();
 			gameClient.start();
+		} else if(mode.toLowerCase().equals("computer")) {
+			// GameServer gameServer = new GameServer(this, 1000, 500);
+			GameComputerMode gameComputer = new GameComputerMode(this, 1000, 500);
+			// gameServer.start();
+			gameComputer.start();
 		}
 		
 		background.setSize(1000, 500);

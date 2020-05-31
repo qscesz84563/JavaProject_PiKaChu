@@ -125,6 +125,16 @@ public class PikachuComputer extends Player{
 			this.feature_num.put("hitCount", hitCount);
 		}
 		
+		public void setScore(int score) {
+			this.feature_num.put("score", score);
+		}
+		
+		public void setLocation(int x, int y) {
+			this.feature_num.put("x", x);
+			this.feature_num.put("y", y);
+			game.player2.setLocation(x, y);
+		}
+		
 		
 		public int getHitCount() {
 			return feature_num.get("hitCount");
@@ -158,5 +168,9 @@ public class PikachuComputer extends Player{
 		public Dictionary<String, Boolean> getFeatBool() {
 			// TODO Auto-generated method stub
 			return null;
+		}
+		
+		public int getScore() {
+			return feature_num.get("score");
 		}
 	}

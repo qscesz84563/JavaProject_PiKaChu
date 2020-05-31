@@ -60,6 +60,18 @@ public class Game2PMode extends Game{
 	public Player getPlayer2P() {
 		return player2_class;
 	}
+
+	@Override
+	public int getBallX() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getBallY() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 	
 	
 
