@@ -5,21 +5,21 @@ import java.awt.Graphics;
 
 import javax.swing.JFrame;
 
-import volleyball.*;
+import volleyball.Game2PMode;
 import javax.swing.*;
 
 public class Ball {
 	
 	private JFrame frame;
-	private Game game;
+	private Game2PMode game;
 	private int x, y, width, height;
 	private int moveSpeedX = 0, moveSpeedY = 5;
 	private final int vHitRight = 15, vHitLeft = -15, vHitUp = -20,
 					  vSpikeRight = 30, vSpikeLeft = -30, vMaxRight = 100, vMaxLeft = -100;
 	
-	public Ball(JFrame frame, Game game, int x, int y, int width, int height) {
-
-    this.frame = frame;
+	public Ball(JFrame frame, Game2PMode game, int x, int y, int width, int height) {
+		
+		this.frame = frame;
 		this.game = game;
 		this.x = x;
 		this.y = y;
@@ -31,6 +31,7 @@ public class Ball {
 	public void update() {	
 		//restart
 		if(game.getKeyManger().restart) {
+			
 			x = y = 0;
 			moveSpeedX = 0;
 			moveSpeedY = 5;
@@ -69,6 +70,7 @@ public class Ball {
 				moveSpeedX = 5;
 			}
 		}
+		
 		if(y + moveSpeedY < 0 & moveSpeedY < 0) {
 			y = 0;
 			moveSpeedY = 5;
@@ -136,14 +138,14 @@ public class Ball {
 			if(game.getKeyManger().left_1P) {
 				moveSpeedX = vHitLeft;
 				moveSpeedY = vHitUp;
-			}else if(game.getKeyManager().right_1P) {
+			}else if(game.getKeyManger().right_1P) {
 				moveSpeedX = vHitRight;
 				moveSpeedY = vHitUp;
 			}else {
 				moveSpeedX = 0;
 				moveSpeedY = vHitUp;
 			}
-			if(game.getKeyManager().up_1P & game.getKeyManager().spike_1P) {
+			if(game.getKeyManger().up_1P & game.getKeyManger().spike_1P) {
 				if(game.getPlayer1P().getHitCount() > 5) {
 					moveSpeedX = vMaxRight;
 					moveSpeedY = 10;
@@ -168,14 +170,14 @@ public class Ball {
 			if(game.getKeyManger().left_2P) {
 				moveSpeedX = vHitLeft;
 				moveSpeedY = vHitUp;
-			}else if(game.getKeyManager().right_2P) {
+			}else if(game.getKeyManger().right_2P) {
 				moveSpeedX = vHitRight;
 				moveSpeedY = vHitUp;
 			}else {
 				moveSpeedX = 0;
 				moveSpeedY = vHitUp;
 			}
-			if(game.getKeyManager().up_2P & game.getKeyManager().spike_2P) {
+			if(game.getKeyManger().up_2P & game.getKeyManger().spike_2P) {
 				if(game.getPlayer2P().getHitCount() > 5) {
 					moveSpeedX = vMaxLeft;
 					moveSpeedY = 10;
