@@ -6,10 +6,11 @@ import java.awt.event.KeyListener;
 public class KeyManager implements KeyListener{
 
 	private boolean keys[];
-	public boolean up_1P, up_2P, down_1P, down_2P, right_1P, right_2P, left_1P, left_2P, spike_1P, spike_2P, restart; 
+	public boolean up_1P, up_2P, down_1P, down_2P, right_1P, right_2P, left_1P, left_2P, spike_1P, spike_2P, restart, pause; 
 	
 	public KeyManager() {
 		keys = new boolean[256];
+		keys[KeyEvent.VK_P] = false;
 	}
 	
 	public void update() {
@@ -26,7 +27,7 @@ public class KeyManager implements KeyListener{
 		spike_2P = keys[KeyEvent.VK_SHIFT];
 		
 		restart = keys[KeyEvent.VK_R];
-		
+		pause = keys[KeyEvent.VK_P];
 	}
 	
 	@Override
@@ -38,15 +39,18 @@ public class KeyManager implements KeyListener{
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
-		keys[e.getKeyCode()] = true;
-
+		if(e.getKeyCode() == KeyEvent.VK_P) {
+			if (keys[KeyEvent.VK_P] == false) keys[KeyEvent.VK_P] = true;
+			else keys[KeyEvent.VK_P] = false;
+		}
+		else keys[e.getKeyCode()] = true;
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
-		keys[e.getKeyCode()] = false;
-
+		if(e.getKeyCode() != 80) keys[e.getKeyCode()] = false;
+		else return;
 	}
 
 }

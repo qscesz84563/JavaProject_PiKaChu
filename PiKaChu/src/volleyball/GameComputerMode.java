@@ -72,10 +72,4 @@ public class GameComputerMode extends Game{
 		return ball_class.getX();
 	}
 
-
-	
-		
-
-	
-	
 }

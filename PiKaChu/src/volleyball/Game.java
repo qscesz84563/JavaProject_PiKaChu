@@ -38,8 +38,8 @@ public abstract class Game{
 		ball.setLocation(100, 100);
 		ball.setVisible(true);
 
-		stick.setSize(17, 235);
-		stick.setLocation(483, 500 -235-30);
+		stick.setSize(20, 150);
+		stick.setLocation(483, 500 -235-30+80);
 		stick.setVisible(true);
 		
 		frame.add(player1);

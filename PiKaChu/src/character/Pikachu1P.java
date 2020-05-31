@@ -113,6 +113,7 @@ public class Pikachu1P extends Player{
 	}
 	
 	public void setHitCount(int hitCount) {
+		if(hitCount > 5) hitCount = 5;
 		this.feature_num.put("hitCount", hitCount);
 	}
 	

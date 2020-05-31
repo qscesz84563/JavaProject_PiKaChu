@@ -14,9 +14,9 @@ public class Ball {
 	private JFrame frame;
 	private Game game;
 	private int x, y, width, height;
-	private int moveSpeedX = 0, moveSpeedY = 5;
+	private int moveSpeedX = 0, moveSpeedY = 5, speedY_decrease = 1;
 	private final int vHitRight = 15, vHitLeft = -15, vHitUp = -20,
-					  vSpikeRight = 30, vSpikeLeft = -30, vMaxRight = 100, vMaxLeft = -100;
+					  energy_increase = 20;
 	
 	public Ball(JFrame frame, Game game, int x, int y, int width, int height) {
 		
@@ -36,6 +36,7 @@ public class Ball {
 			x = y = 100;
 			moveSpeedX = 0;
 			moveSpeedY = 5;
+			speedY_decrease = 1;
 			game.getPlayer1P().setHitCount(0);
 			game.getPlayer2P().setHitCount(0);
 			game.getPlayer1P().setScore(0);
@@ -54,8 +55,10 @@ public class Ball {
 		x += moveSpeedX;
 		y += moveSpeedY;
 		game.ball.setLocation(x, y);
-		moveSpeedY += 1;
+		moveSpeedY += speedY_decrease;
 	}
+	
+	
 	
 	public void check_collision_with_border() {
 		//ball going right
@@ -63,18 +66,21 @@ public class Ball {
 			if(x + width + moveSpeedX > game.width) {
 				x = game.width - width;
 				moveSpeedX = -5;
+				speedY_decrease = 1;
 			}
 		}
 		else if(moveSpeedX < 0) {
 			if(x + moveSpeedX < 0) {
 				x = 0;
 				moveSpeedX = 5;
+				speedY_decrease = 1;
 			}
 		}
 		
 		if(y + moveSpeedY < 0 & moveSpeedY < 0) {
 			y = 0;
 			moveSpeedY = 5;
+			speedY_decrease = 1;
 		}
 		else if(y + height > 500 - 30) {
 			//2P win
@@ -83,6 +89,7 @@ public class Ball {
 				y = 100;
 				moveSpeedX = 0;
 				moveSpeedY = 5;
+				speedY_decrease = 1;
 				game.getPlayer1P().setHitCount(0);
 				game.getPlayer2P().setHitCount(0);
 				game.getPlayer2P().setScore(game.getPlayer2P().getScore() + 1);
@@ -93,6 +100,7 @@ public class Ball {
 				x = y = 100;
 				moveSpeedX = 0;
 				moveSpeedY = 5;
+				speedY_decrease = 1;
 				game.getPlayer1P().setHitCount(0);
 				game.getPlayer2P().setHitCount(0);
 				game.getPlayer1P().setScore(game.getPlayer1P().getScore() + 1);
@@ -112,17 +120,19 @@ public class Ball {
 		
 		if(moveSpeedX > 0) {
 			if((x + width + moveSpeedX > nx) & (x + width + moveSpeedX < nx + nw + width)) {
-				if(y > game.getNet().getLocation().y - height) {
-					x = game.getNet().getLocation().x - width;
+				if(y + height / 2 + moveSpeedY > ny) {
+					x = nx - width;
 					moveSpeedX = -5;
+					speedY_decrease = 1;
 				}
 			}
 		}
 		else if(moveSpeedX < 0){
 			if((x + moveSpeedX < nx + nw) & (x + moveSpeedX > nx - width)) {
-				if(y > game.getNet().getLocation().y - height) {
-					x = game.getNet().getLocation().x + nw;
+				if(y + height / 2 + moveSpeedY > ny) {
+					x = nx + nw;
 					moveSpeedX = 5;
+					speedY_decrease = 1;
 				}
 			}
 		}
@@ -136,25 +146,25 @@ public class Ball {
 		
 		if((x > px - width) & (x + width < px + pw + width) & (y > py - height) & (y < 500 - height)) {
 			game.getPlayer1P().setHitCount(hc + 1);
+			System.out.println("1P hit count: " + game.getPlayer1P().getHitCount());
 			if(game.getKeyManager().left_1P) {
 				moveSpeedX = vHitLeft;
 				moveSpeedY = vHitUp;
+				speedY_decrease = 1;
 			}else if(game.getKeyManager().right_1P) {
 				moveSpeedX = vHitRight;
 				moveSpeedY = vHitUp;
+				speedY_decrease = 1;
+
 			}else {
 				moveSpeedX = 0;
 				moveSpeedY = vHitUp;
+				speedY_decrease = 1;
 			}
 			if(game.getKeyManager().up_1P & game.getKeyManager().spike_1P) {
-				if(game.getPlayer1P().getHitCount() > 5) {
-					moveSpeedX = vMaxRight;
-					moveSpeedY = 10;
-				}
-				else {
-					moveSpeedX = vSpikeRight;
-					moveSpeedY = 0;
-				}
+				moveSpeedX = game.getPlayer1P().getHitCount() * energy_increase;
+				moveSpeedY = -10;
+				speedY_decrease = game.getPlayer1P().getHitCount();
 				game.getPlayer1P().setHitCount(0);
 			}
 		}
@@ -168,25 +178,23 @@ public class Ball {
 		
 		if((x > px - width) & (x + width < px + pw + width) & (y > py - height) & (y < 500 - height)) {
 			game.getPlayer2P().setHitCount(hc + 1);
+			System.out.println("2P hit count: " + game.getPlayer2P().getHitCount());
 			if(game.getKeyManager().left_2P) {
 				moveSpeedX = vHitLeft;
 				moveSpeedY = vHitUp;
+				speedY_decrease = 1;
 			}else if(game.getKeyManager().right_2P) {
 				moveSpeedX = vHitRight;
 				moveSpeedY = vHitUp;
 			}else {
 				moveSpeedX = 0;
 				moveSpeedY = vHitUp;
+				speedY_decrease = 1;
 			}
 			if(game.getKeyManager().up_2P & game.getKeyManager().spike_2P) {
-				if(game.getPlayer2P().getHitCount() > 5) {
-					moveSpeedX = vMaxLeft;
-					moveSpeedY = 10;
-				}
-				else {
-					moveSpeedX = vSpikeLeft;
-					moveSpeedY = 0;
-				}
+				moveSpeedX = game.getPlayer2P().getHitCount() * energy_increase * (-1);
+				moveSpeedY = -10;
+				speedY_decrease = game.getPlayer2P().getHitCount();
 				game.getPlayer2P().setHitCount(0);
 			}
 		}

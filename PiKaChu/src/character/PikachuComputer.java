@@ -26,6 +26,7 @@ public class PikachuComputer extends Player{
 			feature_num.put("hitCount", 0);
 			feature_num.put("moveSpeedX", 5);
 			feature_num.put("moveSpeedY", 5);
+			feature_num.put("score", 0);
 			
 			feature_bool.put("jumping", false);
 			feature_bool.put("goingUp", false);
