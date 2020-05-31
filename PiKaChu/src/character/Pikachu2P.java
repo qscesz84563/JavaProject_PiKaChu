@@ -26,24 +26,25 @@ public class Pikachu2P extends Player{
 		feature_num.put("hitCount", 0);
 		feature_num.put("moveSpeedX", 5);
 		feature_num.put("moveSpeedY", 5);
+		feature_num.put("score", 0);
 		
 		feature_bool.put("jumping", false);
 		feature_bool.put("goingUp", false);
 		feature_bool.put("goingDown", false);
 	}
 	public void update() {
-		if(game.getKeyManager().up_2P & !feature_bool.get("jumping")) {
+		if(game.getKeyManger().up_2P & !feature_bool.get("jumping")) {
 			feature_bool.put("jumping", true);
 			feature_bool.put("goingUp", true);
 			feature_bool.put("goingDown", false);
 		}
-		if(game.getKeyManager().left_2P) {
+		if(game.getKeyManger().left_2P) {
 			feature_num.put("moveSpeedX", -7);
 			feature_num.put("x", feature_num.get("x") + feature_num.get("moveSpeedX"));
 			
 			game.player2.setLocation(feature_num.get("x"), feature_num.get("y"));
 		}
-		if(game.getKeyManager().right_2P){
+		if(game.getKeyManger().right_2P){
 			feature_num.put("moveSpeedX", 7);
 			feature_num.put("x", feature_num.get("x") + feature_num.get("moveSpeedX"));
 			
@@ -100,21 +101,28 @@ public class Pikachu2P extends Player{
 	public Dictionary<String, Boolean> getFeatBool() {
 		return feature_bool;
 	}
-	
+
 	public void setHitCount(int hitCount) {
 		this.feature_num.put("hitCount", hitCount);
 	}
 	
+	public void setScore(int score) {
+		this.feature_num.put("score", score);
+	}
+	
+	public void setLocation(int x, int y) {
+		this.feature_num.put("x", x);
+		this.feature_num.put("y", y);
+		game.player2.setLocation(x, y);
+	}
 	
 	public int getHitCount() {
 		return feature_num.get("hitCount");
 	}
 
-
 	public int getX() {
 		return feature_num.get("x");
 	}
-
 
 	public int getY() {
 		return feature_num.get("y");
@@ -125,8 +133,11 @@ public class Pikachu2P extends Player{
 		return feature_num.get("width");
 	}
 
-
 	public int getHeight() {
 		return feature_num.get("height");
+	}
+	
+	public int getScore() {
+		return feature_num.get("score");
 	}
 }
