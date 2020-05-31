@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.util.Dictionary;
 import java.util.Hashtable;
 
+import volleyball.Game;
 import volleyball.Game2PMode;
 import javax.swing.*;
 
@@ -35,14 +36,14 @@ public class Pikachu1P extends Player{
 
 	public void update() {
 		//up_1P
-		if(game.getKeyManger().up_1P & !feature_bool.get("jumping")) {
+		if(game.getKeyManager().up_1P & !feature_bool.get("jumping")) {
 			feature_bool.put("jumping", true);
 			feature_bool.put("goingUp", true);
 			feature_bool.put("goingDown", false);
 		}
 
 		//left_1P
-		if(game.getKeyManger().left_1P) {
+		if(game.getKeyManager().left_1P) {
 			feature_num.put("moveSpeedX", -7);
 			feature_num.put("x", feature_num.get("x") + feature_num.get("moveSpeedX"));
 			
@@ -50,7 +51,7 @@ public class Pikachu1P extends Player{
 		}
 
 		// right_1P
-		if(game.getKeyManger().right_1P){
+		if(game.getKeyManager().right_1P){
 			feature_num.put("moveSpeedX", 7);
 			feature_num.put("x", feature_num.get("x") + feature_num.get("moveSpeedX"));
 			
@@ -152,5 +153,6 @@ public class Pikachu1P extends Player{
 	public int getScore() {
 		return feature_num.get("score");
 	}
+
 
 }

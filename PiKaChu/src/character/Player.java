@@ -22,9 +22,12 @@ public abstract class Player {
 	public abstract Dictionary<String, Boolean> getFeatBool();
 	
 	public abstract void setHitCount(int hitCount);
+	public abstract void setScore(int Score);
+	public abstract void setLocation(int x, int y);
 	public abstract int getHitCount();
 	public abstract int getX();
 	public abstract int getY();
 	public abstract int getWidth();
 	public abstract int getHeight();
+	public abstract int getScore();
 }

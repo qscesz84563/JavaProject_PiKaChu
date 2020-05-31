@@ -33,18 +33,18 @@ public class Pikachu2P extends Player{
 		feature_bool.put("goingDown", false);
 	}
 	public void update() {
-		if(game.getKeyManger().up_2P & !feature_bool.get("jumping")) {
+		if(game.getKeyManager().up_2P & !feature_bool.get("jumping")) {
 			feature_bool.put("jumping", true);
 			feature_bool.put("goingUp", true);
 			feature_bool.put("goingDown", false);
 		}
-		if(game.getKeyManger().left_2P) {
+		if(game.getKeyManager().left_2P) {
 			feature_num.put("moveSpeedX", -7);
 			feature_num.put("x", feature_num.get("x") + feature_num.get("moveSpeedX"));
 			
 			game.player2.setLocation(feature_num.get("x"), feature_num.get("y"));
 		}
-		if(game.getKeyManger().right_2P){
+		if(game.getKeyManager().right_2P){
 			feature_num.put("moveSpeedX", 7);
 			feature_num.put("x", feature_num.get("x") + feature_num.get("moveSpeedX"));
 			

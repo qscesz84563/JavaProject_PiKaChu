@@ -111,6 +111,21 @@ public class Virtual1P extends Player{
 		// TODO Auto-generated method stub
 		return feature_num;
 	}
+	
+	public void setHitCount(int hitCount) {
+		this.feature_num.put("hitCount", hitCount);
+	}
+	
+	public void setScore(int score) {
+		this.feature_num.put("score", score);
+	}
+	
+	public void setLocation(int x, int y) {
+		this.feature_num.put("x", x);
+		this.feature_num.put("y", y);
+		game.player1.setLocation(x, y);
+	}
+	
 	@Override
 	public int getX() {
 		// TODO Auto-generated method stub
@@ -137,9 +152,9 @@ public class Virtual1P extends Player{
 	public int getWidth() {
 		// TODO Auto-generated method stub
 		return 0;
-	}@Override
-	public void setHitCount(int hitCount) {
-		// TODO Auto-generated method stub
-		
+	}
+	
+	public int getScore() {
+		return feature_num.get("score");
 	}
 }
