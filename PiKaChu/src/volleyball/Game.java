@@ -3,6 +3,7 @@ package volleyball;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferStrategy;
+import java.util.Dictionary;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -11,6 +12,7 @@ import javax.swing.JLabel;
 import character.Ball;
 import character.Pikachu1P;
 import character.Pikachu2P;
+import character.Player;
 import control.KeyManager;
 
 public abstract class Game{
@@ -53,5 +55,13 @@ public abstract class Game{
 		return stick;
 	}
 
+	public abstract KeyManager getKeyManager();
+	public abstract Player getPlayer1P();
+	public abstract Player getPlayer2P();
+
+	
+	
+	
+	
 }
 

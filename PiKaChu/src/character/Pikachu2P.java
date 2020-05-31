@@ -5,17 +5,17 @@ import java.awt.Graphics;
 import java.util.Dictionary;
 import java.util.Hashtable;
 
-import volleyball.Game2PMode;
+import volleyball.*;
 import javax.swing.*;
 
 public class Pikachu2P extends Player{
 	
-	private Game2PMode game;
+	private Game game;
 
 	protected Dictionary<String, Integer> feature_num = new Hashtable<String, Integer>();
 	protected Dictionary<String, Boolean> feature_bool = new Hashtable<String, Boolean>();
 	
-	public Pikachu2P(JFrame frame, Game2PMode game, int x, int y, int width, int height) {
+	public Pikachu2P(JFrame frame, Game game, int x, int y, int width, int height) {
 		super(frame);
 		this.game = game;
 
@@ -32,18 +32,18 @@ public class Pikachu2P extends Player{
 		feature_bool.put("goingDown", false);
 	}
 	public void update() {
-		if(game.getKeyManger().up_2P & !feature_bool.get("jumping")) {
+		if(game.getKeyManager().up_2P & !feature_bool.get("jumping")) {
 			feature_bool.put("jumping", true);
 			feature_bool.put("goingUp", true);
 			feature_bool.put("goingDown", false);
 		}
-		if(game.getKeyManger().left_2P) {
+		if(game.getKeyManager().left_2P) {
 			feature_num.put("moveSpeedX", -7);
 			feature_num.put("x", feature_num.get("x") + feature_num.get("moveSpeedX"));
 			
 			game.player2.setLocation(feature_num.get("x"), feature_num.get("y"));
 		}
-		if(game.getKeyManger().right_2P){
+		if(game.getKeyManager().right_2P){
 			feature_num.put("moveSpeedX", 7);
 			feature_num.put("x", feature_num.get("x") + feature_num.get("moveSpeedX"));
 			
@@ -88,9 +88,17 @@ public class Pikachu2P extends Player{
 			
 		//check touch net 
 		if(feature_num.get("x") < game.getNet().getLocation().x + game.getNet().getSize().width) {
-			feature_num.put("y", game.getNet().getLocation().x + game.getNet().getSize().width);
-			game.player2.setLocation(feature_num.get("x"), feature_num.get("y") );
+			feature_num.put("x", game.getNet().getLocation().x + game.getNet().getSize().width);
+			game.player2.setLocation(game.getNet().getX() + game.getNet().getWidth(), feature_num.get("y") );
 		}
+	}
+	
+	public Dictionary<String, Integer> getFeatNum() {
+		return feature_num;
+	}
+	
+	public Dictionary<String, Boolean> getFeatBool() {
+		return feature_bool;
 	}
 	
 	public void setHitCount(int hitCount) {

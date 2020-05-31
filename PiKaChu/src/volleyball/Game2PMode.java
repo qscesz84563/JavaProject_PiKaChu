@@ -9,6 +9,7 @@ import javax.swing.*;
 import character.Ball;
 import character.Pikachu1P;
 import character.Pikachu2P;
+import character.Player;
 import control.KeyManager;
 
 
@@ -48,17 +49,18 @@ public class Game2PMode extends Game{
 	}
 	
 	
-	public KeyManager getKeyManger() {
+	public KeyManager getKeyManager() {
 		return keyManager;
 	}
 		
-	public Pikachu1P getPlayer1P() {
+	public Player getPlayer1P() {
 		return player1_class;
 	}
 	
-	public Pikachu2P getPlayer2P() {
+	public Player getPlayer2P() {
 		return player2_class;
 	}
 	
 	
+
 }
