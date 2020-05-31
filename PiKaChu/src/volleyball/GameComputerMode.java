@@ -25,7 +25,7 @@ public class GameComputerMode extends Game{
 		ball_class = new Ball(frame, this, 100, 100, 80, 80);
 		keyManager = new KeyManager();
 		
-		frame.addKeyListener(keyManager);	
+		frame.addKeyListener(keyManager);
 	}
 	
 	public void start() {
@@ -36,9 +36,11 @@ public class GameComputerMode extends Game{
 			public void run() {
 				// TODO Auto-generated method stub
 				keyManager.update();
-				player1_class.update();
-				computer_class.update();
-				ball_class.update();
+				if(keyManager.pause == false) {
+					player1_class.update();
+					computer_class.update();
+					ball_class.update();
+				}
 			}
 		};
 		
