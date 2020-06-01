@@ -23,7 +23,7 @@ public abstract class Game{
 	public JLabel stick = new JLabel(new ImageIcon(getClass().getResource("/image/stick.jpg")));
 	public ImageIcon player1_idle = new ImageIcon(getClass().getResource("/image/1P.gif"));
 	public ImageIcon player2_idle = new ImageIcon(getClass().getResource("/image/2P.gif"));
-	public ImageIcon dash_left = new ImageIcon(getClass().getResource("/image/dash_left 2.png"));
+	public ImageIcon dash_left = new ImageIcon(getClass().getResource("/image/dash_left.png"));
 	public ImageIcon dash_right = new ImageIcon(getClass().getResource("/image/dash_right.png"));
 	public int width, height;
 	
