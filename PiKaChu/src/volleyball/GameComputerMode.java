@@ -1,30 +1,27 @@
 package volleyball;
 
-import java.awt.Rectangle;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import javax.swing.*;
+import javax.swing.JFrame;
 
-import character.Ball;
-import character.Pikachu1P;
-import character.Pikachu2P;
-import character.Player;
+import character.*;
 import control.KeyManager;
 
 
 
-public class Game2PMode extends Game{
+public class GameComputerMode extends Game{
 	private Pikachu1P player1_class;
-	private Pikachu2P player2_class;
+	private PikachuComputer computer_class;
 	private Ball ball_class;
 	private KeyManager keyManager;
 	
-	public Game2PMode(JFrame frame, int width, int height) {
+	public GameComputerMode(JFrame frame, int width, int height) {
 		super(frame, width, height);
 		
 		player1_class = new Pikachu1P(frame, this, 70, 380-30, 120, 120);
-		player2_class = new Pikachu2P(frame, this, 810, 380-30, 120, 120);
+		computer_class = new PikachuComputer(frame, this, 810, 380-30, 120, 120);
+		
 		ball_class = new Ball(frame, this, 100, 100, 80, 80);
 		keyManager = new KeyManager();
 		
@@ -40,7 +37,7 @@ public class Game2PMode extends Game{
 				// TODO Auto-generated method stub
 				keyManager.update();
 				player1_class.update();
-				player2_class.update();
+				computer_class.update();
 				ball_class.update();
 			}
 		};
@@ -49,7 +46,7 @@ public class Game2PMode extends Game{
 	}
 	
 	
-	public KeyManager getKeyManager() {
+	public KeyManager getKeyManger() {
 		return keyManager;
 	}
 		
@@ -58,21 +55,27 @@ public class Game2PMode extends Game{
 	}
 	
 	public Player getPlayer2P() {
-		return player2_class;
+		return computer_class;
 	}
 
-	@Override
+
+	public KeyManager getKeyManager() {
+		return keyManager;
+	}
+
+	
 	public int getBallX() {
-		// TODO Auto-generated method stub
-		return 0;
+		return ball_class.getX();
 	}
 
-	@Override
 	public int getBallY() {
-		// TODO Auto-generated method stub
-		return 0;
+		return ball_class.getX();
 	}
-	
-	
 
+
+	
+		
+
+	
+	
 }
