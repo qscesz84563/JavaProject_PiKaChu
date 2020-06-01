@@ -15,7 +15,9 @@ import java.math.*;
 
 public class Launcher extends JFrame implements ActionListener, KeyListener{
 
-	JLabel background = new JLabel(new ImageIcon("src/image/background3.png"));
+	JLabel background = new JLabel(new ImageIcon("src/image/background2.png"));
+	public boolean  enter; 
+	StartScreen start;
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -32,51 +34,81 @@ public class Launcher extends JFrame implements ActionListener, KeyListener{
 		setFocusable(true);
 		requestFocusInWindow();
 		
-		Scanner scan = new Scanner(System.in);
-		String mode = scan.next();
+		start = new StartScreen(this,1000,500);
+		start.check_type();	
 		
-		if (mode.toLowerCase().equals("2p")) {
-			Game2PMode game2P = new Game2PMode(this, 1000, 500);
-			game2P.start();
-		} else if (mode.toLowerCase().equals("internet1p")) {
-			GameServer gameServer = new GameServer(this, 1000, 500);
-			//GameClient gameClient = new GameClient(this, 1000, 500);
-			gameServer.start();
-			// gameClient.start();
-		} else if (mode.toLowerCase().equals("internet2p")) {
-			// GameServer gameServer = new GameServer(this, 1000, 500);
-			GameClient gameClient = new GameClient(this, 1000, 500);
-			// gameServer.start();
-			gameClient.start();
-		} else if(mode.toLowerCase().equals("computer")) {
-			// GameServer gameServer = new GameServer(this, 1000, 500);
-			GameComputerMode gameComputer = new GameComputerMode(this, 1000, 500);
-			// gameServer.start();
-			gameComputer.start();
-		}
-		
-		background.setSize(1000, 500);
-		background.setLocation(0, 0);
-		background.setVisible(true);
-		add(background);
-		// fuck 
+//		Scanner scan = new Scanner(System.in);
+//		String mode = scan.next();
+//		
+//		if (mode.toLowerCase().equals("2p")) {
+//			Game2PMode game2P = new Game2PMode(this, 1000, 500);
+//			game2P.start();
+//		} else if (mode.toLowerCase().equals("internet1p")) {
+//			GameServer gameServer = new GameServer(this, 1000, 500);
+//			//GameClient gameClient = new GameClient(this, 1000, 500);
+//			gameServer.start();
+//			// gameClient.start();
+//		} else if (mode.toLowerCase().equals("internet2p")) {
+//			// GameServer gameServer = new GameServer(this, 1000, 500);
+//			GameClient gameClient = new GameClient(this, 1000, 500);
+//			// gameServer.start();
+//			gameClient.start();
+//		} else if(mode.toLowerCase().equals("computer")) {
+//			// GameServer gameServer = new GameServer(this, 1000, 500);
+//			GameComputerMode gameComputer = new GameComputerMode(this, 1000, 500);
+//			// gameServer.start();
+//			gameComputer.start();
+//		}
+//		
+//		background.setSize(1000, 500);
+//		background.setLocation(0, 0);
+//		background.setVisible(true);
+//		add(background);
+//		// fuck 
 	}
 	
 	@Override
-	public void keyPressed(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-		
+	public void keyPressed(KeyEvent e) {
+		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+			if (start.choose==start.PLAYER1) {
+				
+				start.stop();
+
+				background.setSize(1000, 500);
+				background.setLocation(0, 0);
+				background.setVisible(true);
+				add(background);
+			}
+			else if (start.choose==start.PLAYER2) {
+				
+				start.stop();
+				
+				Game2PMode game2P = new Game2PMode(this, 1000, 500);
+				game2P.start();
+
+				background.setSize(1000, 500);
+				background.setLocation(0, 0);
+				background.setVisible(true);
+				add(background);
+			}
+			
+			else if (start.choose==start.PLAYER3) {
+				
+				
+			}
+			
+			
+			
+			
+		}
 	}
 
 	@Override
-	public void keyReleased(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-		
+	public void keyReleased(KeyEvent e) {
 	}
 
 	@Override
-	public void keyTyped(KeyEvent arg0) {
-		// TODO Auto-generated method stub
+	public void keyTyped(KeyEvent e) {
 		
 	}
 
