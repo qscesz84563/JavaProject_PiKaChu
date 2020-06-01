@@ -16,6 +16,7 @@ import character.Player;
 import control.KeyManager;
 
 public abstract class Game{
+	public JLabel background = new JLabel(new ImageIcon("src/image/background2.png"));
 	public JLabel player1 = new JLabel(new ImageIcon(getClass().getResource("/image/1P.gif")));
 	public JLabel player2 = new JLabel(new ImageIcon(getClass().getResource("/image/2P.gif")));
 	public JLabel ball = new JLabel(new ImageIcon(getClass().getResource("/image/ball.png")));
@@ -42,15 +43,21 @@ public abstract class Game{
 		ball.setLocation(100, 100);
 		ball.setVisible(true);
 
-		stick.setSize(20, 150);
-		stick.setLocation(483, 500 -235-30+80);
-		stick.setVisible(true);
+		stick.setSize(17, 235);
+		stick.setLocation(492, 500-235-30+80);
+		//unmodified
+		stick.setVisible(false);
+		
+		background.setSize(1000, 500);
+		background.setLocation(0, 0);
+		background.setVisible(true);
+		
 		
 		frame.add(player1);
 		frame.add(player2);
 		frame.add(ball);
 		frame.add(stick);
-		
+		frame.add(background);
 	}
 	
 	public abstract void start();

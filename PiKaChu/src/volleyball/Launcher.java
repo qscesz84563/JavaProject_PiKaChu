@@ -15,7 +15,6 @@ import java.math.*;
 
 public class Launcher extends JFrame implements ActionListener, KeyListener{
 
-	JLabel background = new JLabel(new ImageIcon("src/image/background2.png"));
 	public boolean  enter; 
 	StartScreen start;
 	
@@ -60,11 +59,6 @@ public class Launcher extends JFrame implements ActionListener, KeyListener{
 //			gameComputer.start();
 //		}
 //		
-//		background.setSize(1000, 500);
-//		background.setLocation(0, 0);
-//		background.setVisible(true);
-//		add(background);
-//		// fuck 
 	}
 	
 	@Override
@@ -73,33 +67,25 @@ public class Launcher extends JFrame implements ActionListener, KeyListener{
 			if (start.choose==start.PLAYER1) {
 				
 				start.stop();
-
-				background.setSize(1000, 500);
-				background.setLocation(0, 0);
-				background.setVisible(true);
-				add(background);
+				GameComputerMode gameComputer = new GameComputerMode(this, 1000, 500);
+				gameComputer.start();
 			}
 			else if (start.choose==start.PLAYER2) {
 				
-				start.stop();
-				
+				start.stop();	
 				Game2PMode game2P = new Game2PMode(this, 1000, 500);
 				game2P.start();
-
-				background.setSize(1000, 500);
-				background.setLocation(0, 0);
-				background.setVisible(true);
-				add(background);
 			}
 			
 			else if (start.choose==start.PLAYER3) {
 				
+				start.stop();	
+//				GameServer gameServer = new GameServer(this, 1000, 500);
+//				GameClient gameClient = new GameClient(this, 1000, 500);
+//				gameServer.start();
+//				gameClient.start();
 				
 			}
-			
-			
-			
-			
 		}
 	}
 
