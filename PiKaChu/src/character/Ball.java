@@ -107,8 +107,6 @@ public class Ball {
 				game.getPlayer1P().setLocation(70, 350);
 				game.getPlayer2P().setLocation(810, 350);
 			}
-			
-			System.out.println("1P: " + game.getPlayer1P().getScore() +  " 2P: " + game.getPlayer2P().getScore());
 		}
 	}
 	
@@ -146,7 +144,6 @@ public class Ball {
 		
 		if((x > px - width) & (x + width < px + pw + width) & (y > py - height) & (y < 500 - height)) {
 			game.getPlayer1P().setHitCount(hc + 1);
-			System.out.println("1P hit count: " + game.getPlayer1P().getHitCount());
 			if(game.getKeyManager().left_1P) {
 				moveSpeedX = vHitLeft;
 				moveSpeedY = vHitUp;
@@ -178,7 +175,6 @@ public class Ball {
 		
 		if((x > px - width) & (x + width < px + pw + width) & (y > py - height) & (y < 500 - height)) {
 			game.getPlayer2P().setHitCount(hc + 1);
-			System.out.println("2P hit count: " + game.getPlayer2P().getHitCount());
 			if(game.getKeyManager().left_2P) {
 				moveSpeedX = vHitLeft;
 				moveSpeedY = vHitUp;
