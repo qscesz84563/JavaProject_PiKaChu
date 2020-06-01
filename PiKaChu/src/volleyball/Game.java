@@ -20,6 +20,10 @@ public abstract class Game{
 	public JLabel player2 = new JLabel(new ImageIcon(getClass().getResource("/image/2P.gif")));
 	public JLabel ball = new JLabel(new ImageIcon(getClass().getResource("/image/ball.png")));
 	public JLabel stick = new JLabel(new ImageIcon(getClass().getResource("/image/stick.jpg")));
+	public ImageIcon player1_idle = new ImageIcon(getClass().getResource("/image/1P.gif"));
+	public ImageIcon player2_idle = new ImageIcon(getClass().getResource("/image/2P.gif"));
+	public ImageIcon dash_left = new ImageIcon(getClass().getResource("/image/dash_left 2.png"));
+	public ImageIcon dash_right = new ImageIcon(getClass().getResource("/image/dash_right.png"));
 	public int width, height;
 	
 	public Game(JFrame frame, int width, int height) {

@@ -44,10 +44,16 @@ public class Pikachu1P extends Player{
 
 		//left_1P
 		if(game.getKeyManager().left_1P) {
-			feature_num.put("moveSpeedX", -7);
-			feature_num.put("x", feature_num.get("x") + feature_num.get("moveSpeedX"));
-			
-			game.player1.setLocation(feature_num.get("x"), feature_num.get("y"));
+			if(game.getKeyManager().dash_1P & !feature_bool.get("jumping")) {
+				game.player1.setIcon(game.dash_left);
+				game.player1.setSize(173, 120);
+			}
+			else {
+				feature_num.put("moveSpeedX", -7);
+				feature_num.put("x", feature_num.get("x") + feature_num.get("moveSpeedX"));
+				
+				game.player1.setLocation(feature_num.get("x"), feature_num.get("y"));
+			}
 		}
 
 		// right_1P
