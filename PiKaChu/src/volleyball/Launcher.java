@@ -17,6 +17,15 @@ public class Launcher extends JFrame implements ActionListener, KeyListener{
 
 	public boolean  enter; 
 	StartScreen start;
+	Game2PMode game2P;
+	GameComputerMode gameComputer;
+	GameServer gameServer;
+	GameClient gameClient;
+	AePlayWave apw;
+	public static final int START = 0;
+	public static final int NOTSTART = 1;
+	public int check=START;
+	
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -32,10 +41,11 @@ public class Launcher extends JFrame implements ActionListener, KeyListener{
 		addKeyListener(this);
 		setFocusable(true);
 		requestFocusInWindow();
-		
+
 		start = new StartScreen(this,1000,500);
 		start.check_type();	
-		
+		apw = new AePlayWave("src/music/bgm.wav");
+		apw.start();
 //		Scanner scan = new Scanner(System.in);
 //		String mode = scan.next();
 //		
@@ -58,33 +68,83 @@ public class Launcher extends JFrame implements ActionListener, KeyListener{
 //			// gameServer.start();
 //			gameComputer.start();
 //		}
-//		
+		
 	}
 	
 	@Override
 	public void keyPressed(KeyEvent e) {
 		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-			if (start.choose==start.PLAYER1) {
+			if (start.choose==StartScreen.PLAYER1) {
+				if (check == START) {
+					apw.stop();
+					start.stop();
+					System.out.println("in");
+					gameComputer = new GameComputerMode(this, 1000, 500);
+					gameComputer.start();
+					apw = new AePlayWave("src/music/bgm.wav");
+					apw.start();
+					check = NOTSTART;
+				}
 				
-				start.stop();
-				GameComputerMode gameComputer = new GameComputerMode(this, 1000, 500);
-				gameComputer.start();
 			}
-			else if (start.choose==start.PLAYER2) {
+			else if (start.choose==StartScreen.PLAYER2) {
+				if (check == START) {
+					apw.stop();
+					start.stop();	
+					game2P = new Game2PMode(this, 1000, 500);
+					game2P.start();
+					apw = new AePlayWave("src/music/bgm.wav");
+					apw.start();
+					check = NOTSTART;
+				}
 				
-				start.stop();	
-				Game2PMode game2P = new Game2PMode(this, 1000, 500);
-				game2P.start();
 			}
 			
-			else if (start.choose==start.PLAYER3) {
-				
-				start.stop();	
-//				GameServer gameServer = new GameServer(this, 1000, 500);
-//				GameClient gameClient = new GameClient(this, 1000, 500);
-//				gameServer.start();
-//				gameClient.start();
-				
+			else if (start.choose==StartScreen.PLAYER3) {
+				if (check == START) {
+					apw.stop();
+					start.stop();	
+//					gameServer = new GameServer(this, 1000, 500);
+//					gameClient = new GameClient(this, 1000, 500);
+//					gameServer.start();
+//					gameClient.start();
+					apw = new AePlayWave("src/music/bgm.wav");
+					apw.start();
+					check = NOTSTART;
+				}
+			}
+		}
+		
+		if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+			if (check == NOTSTART) {
+				if (start.choose==StartScreen.PLAYER1) {
+					gameComputer.stop();
+					start = new StartScreen(this,1000,500);
+					start.check_type();	
+					apw.stop();
+					apw = new AePlayWave("src/music/bgm.wav");
+					apw.start();
+					check=START;
+				}
+				else if (start.choose==StartScreen.PLAYER2) {
+					game2P.stop();
+					start = new StartScreen(this,1000,500);
+					start.check_type();	
+					apw.stop();
+					apw = new AePlayWave("src/music/bgm.wav");
+					apw.start();
+					check=START;
+				}
+				else if (start.choose==StartScreen.PLAYER3) {
+					gameServer.stop();
+//					gameClient.stop();
+					start = new StartScreen(this,1000,500);
+					start.check_type();
+					apw.stop();
+					apw = new AePlayWave("src/music/bgm.wav");
+					apw.start();
+					check=START;
+				}
 			}
 		}
 	}

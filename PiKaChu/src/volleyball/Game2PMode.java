@@ -50,16 +50,7 @@ public class Game2PMode extends Game{
 		timer.schedule(task_update, 0, 50);
 	}
 	
-//	public void stop() {
-//		frame.removeKeyListener(this);
-//		frame.remove(player1);
-//		frame.remove(player2);
-//		timer.cancel();
-//		
-//		frame.invalidate();
-//		frame.validate();
-//		frame.repaint();
-//	}
+
 	
 	
 	public KeyManager getKeyManager() {

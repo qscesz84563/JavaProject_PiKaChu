@@ -26,10 +26,12 @@ public abstract class Game{
 	public ImageIcon dash_left = new ImageIcon(getClass().getResource("/image/dash_left.png"));
 	public ImageIcon dash_right = new ImageIcon(getClass().getResource("/image/dash_right.png"));
 	public int width, height;
+	public JFrame frame;
 	
 	public Game(JFrame frame, int width, int height) {
 		this.width = width;
 		this.height = height;
+		this.frame = frame;
 		
 		player1.setSize(120, 120);
 		player1.setLocation(50, 380-30);
@@ -44,14 +46,13 @@ public abstract class Game{
 		ball.setVisible(true);
 
 		stick.setSize(17, 235);
-		stick.setLocation(492, 500-235-30+80);
+		stick.setLocation(492, 500-235-25);
 		//unmodified
-		stick.setVisible(false);
+		stick.setVisible(true);
 		
 		background.setSize(1000, 500);
 		background.setLocation(0, 0);
 		background.setVisible(true);
-		
 		
 		frame.add(player1);
 		frame.add(player2);
@@ -61,6 +62,18 @@ public abstract class Game{
 	}
 	
 	public abstract void start();
+	
+	public void stop() {
+		frame.remove(player1);
+		frame.remove(player2);
+		frame.remove(ball);
+		frame.remove(stick);
+		frame.remove(background);
+	
+		frame.invalidate();
+		frame.validate();
+		frame.repaint();
+	}
 	
 	public JLabel getNet() {
 		return stick;

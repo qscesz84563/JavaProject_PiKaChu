@@ -70,9 +70,7 @@ public class StartScreen implements KeyListener{
 		blue.setLocation(0, 0);
 		blue.setVisible(true);
 		frame.add(blue);
-		
-		
-	}
+}
 	
 	public void stop() {
 		frame.removeKeyListener(this);
