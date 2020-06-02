@@ -15,6 +15,11 @@ public class PikachuComputer extends Player{
 		protected Dictionary<String, Integer> feature_num = new Hashtable<String, Integer>();
 		protected Dictionary<String, Boolean> feature_bool = new Hashtable<String, Boolean>();
 		
+		private  int previouBallX = 0;
+		private  int previouBallY = 0;
+		private  int speedBallX = 0;
+		private  int speedBallY = 0;
+		
 		public PikachuComputer(JFrame frame, Game game, int x, int y, int width, int height) {
 			super(frame);
 			this.game = game;
@@ -33,26 +38,53 @@ public class PikachuComputer extends Player{
 			feature_bool.put("goingDown", false);
 		}
 		public void update() {
-			
+			speedBallX = game.getBallX() - previouBallX;
+			speedBallY = game.getBallY() - previouBallY;
 			
 			if(game.getBallX() < 500) {
 				if(feature_num.get("x") < 750) {
 					game.getKeyManager().right_2P=true;
 					game.getKeyManager().left_2P=false;
-				}else if(feature_num.get("x") > 800) {
+				}else if(feature_num.get("x") > 780) {
 					game.getKeyManager().left_2P=true;
 					game.getKeyManager().right_2P=false;
 				}
-			}
+			}			
 			else {
 				if(feature_num.get("x") < game.getBallX() ) {
 					game.getKeyManager().right_2P=true;
 					game.getKeyManager().left_2P=false;
+					//System.out.println( "right");
 				}else if(feature_num.get("x") > game.getBallX()) {
 					game.getKeyManager().left_2P=true;
 					game.getKeyManager().right_2P=false;
+					//System.out.println( "left");
+				
+				if( Math.abs(feature_num.get("x")-game.getBallX() ) < 30 ) {
+					//System.out.println(game.getBallY());
+					double random = Math.random() ;
+					if(random < 0.5 & game.getBallY() > 230  ) {
+						game.getKeyManager().up_2P=true;
+						game.getKeyManager().spike_2P=true;	
+						//System.out.println("spike");
+					}else  if (random < 1 & game.getBallY() > 230 ) {		
+						game.getKeyManager().up_2P=true;	
+						//System.out.println("up");
+					}else {
+						game.getKeyManager().left_2P=false;
+						game.getKeyManager().right_2P=false;
+					}
+					//System.out.println( "up");
+
+				}
 				}
 			}
+
+
+			 previouBallX = game.getBallX();
+			 previouBallY = game.getBallY();
+
+
 
 
 			
