@@ -13,8 +13,8 @@ public class Pikachu1P extends Player{
 	
 	private Game game;
 	
-	protected Dictionary<String, Integer> feature_num = new Hashtable<String, Integer>();
-	protected Dictionary<String, Boolean> feature_bool = new Hashtable<String, Boolean>();
+	public Dictionary<String, Integer> feature_num = new Hashtable<String, Integer>();
+	public Dictionary<String, Boolean> feature_bool = new Hashtable<String, Boolean>();
 	
 	public Pikachu1P(JFrame frame, Game game,int x, int y, int width, int height) {
 		super(frame);

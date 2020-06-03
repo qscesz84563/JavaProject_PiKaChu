@@ -24,9 +24,9 @@ import control.KeyManager;
 import java.io.*;
 
 public class GameServer extends Game{
-	private Player player1_class;
-	private Player player2_class;
-	private Ball ball_class;
+	public Player player1_class;
+	public Player player2_class;
+	public Ball ball_class;
 	private KeyManager keyManager;
 	
 	private ServerSocket serverSocket;
@@ -38,6 +38,7 @@ public class GameServer extends Game{
 	private boolean isLagBallFlag = false; 
 	public String IP;
 	public int Port;
+	public Timer timer;
 	
 	public GameServer(JFrame frame, int width, int height) {
 		super(frame, width, height);
@@ -95,7 +96,7 @@ public class GameServer extends Game{
 	
 	
 	public void start() {
-		Timer timer = new Timer();
+		timer = new Timer();
 		TimerTask task_update = new TimerTask() {
 			@Override
 			public void run() {

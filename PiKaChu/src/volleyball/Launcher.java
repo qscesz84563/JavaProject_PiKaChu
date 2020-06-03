@@ -38,6 +38,10 @@ public class Launcher extends JFrame implements ActionListener, KeyListener{
 	public JButton client_enter = new JButton("Enter");
 	public int client_check = 0;
 	public JFrame server_frame, client_frame;
+	public Timer timer_win;
+	public TimerTask task_win;
+	public JLabel winner_1p = new JLabel(new ImageIcon("src/image/1pwin.png"));
+	public JLabel winner_2p = new JLabel(new ImageIcon("src/image/2pwin.png"));
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -55,6 +59,17 @@ public class Launcher extends JFrame implements ActionListener, KeyListener{
 		setFocusable(true);
 		requestFocusInWindow();
 
+		winner_1p.setSize(282, 104);
+		winner_1p.setLocation((1000-282)/2, (500-104)/2);
+		winner_1p.setVisible(false);
+		
+		winner_2p.setSize(282, 104);
+		winner_2p.setLocation((1000-282)/2, (500-104)/2);
+		winner_2p.setVisible(false);
+		
+		add(winner_1p);
+		add(winner_2p);
+		
 		start = new StartScreen(this,1000,500);
 		start.check_type();	
 		apw = new AePlayWave("src/music/bgm.wav");
@@ -108,6 +123,7 @@ public class Launcher extends JFrame implements ActionListener, KeyListener{
 					check = NOTSTART;
 					client_check = 0;
 					client_frame.setVisible(false);
+					timer_win.schedule(task_win, 0, 1000);
 				}
 			}
 		});
@@ -117,6 +133,58 @@ public class Launcher extends JFrame implements ActionListener, KeyListener{
 				server_frame.setVisible(false);
 			}
 		});
+		
+		timer_win = new Timer();
+		task_win = new TimerTask() {
+			@Override
+			public void run() {				
+				if (check == NOTSTART) {
+					if (start.choose==StartScreen.PLAYER1) {
+						if(gameComputer.player1_class.feature_num.get("score") >= 10) {
+							gameComputer.timer.cancel();
+							winner_1p.setVisible(true);
+						}
+						else if(gameComputer.computer_class.feature_num.get("score") >= 10) {
+							gameComputer.timer.cancel();
+							winner_2p.setVisible(true);
+						}
+					}
+					else if (start.choose==StartScreen.PLAYER2) {
+						if(game2P.player1_class.feature_num.get("score") >= 10) {
+							game2P.timer.cancel();
+							winner_1p.setVisible(true);
+						}
+						else if(game2P.player2_class.feature_num.get("score") >= 10) {
+							game2P.timer.cancel();
+							winner_2p.setVisible(true);
+						}
+					}
+					
+					
+					else if (start.choose==StartScreen.SERVER) {
+						if(gameServer.player1_class.getFeatNum().get("score") >= 10) {
+							gameServer.timer.cancel();
+							winner_1p.setVisible(true);
+						}
+						else if(gameServer.player2_class.getFeatNum().get("score") >= 10) {
+							gameServer.timer.cancel();
+							winner_2p.setVisible(true);
+						}
+					}
+					else if (start.choose==StartScreen.CLIENT) {
+						if(gameClient.player1_class.getFeatNum().get("score") >= 10) {
+							gameClient.timer.cancel();
+							winner_1p.setVisible(true);
+						}
+						else if(gameClient.player2_class.getFeatNum().get("score") >= 10) {
+							gameClient.timer.cancel();
+							winner_2p.setVisible(true);
+						}
+					}
+				}
+			}
+		};
+		
 	}
 	
 	public void newGameClient() {
@@ -184,6 +252,7 @@ public class Launcher extends JFrame implements ActionListener, KeyListener{
 					apw = new AePlayWave("src/music/bgm.wav");
 					apw.start();
 					check = NOTSTART;
+					timer_win.schedule(task_win, 0, 1000);
 				}
 				
 			}
@@ -196,6 +265,7 @@ public class Launcher extends JFrame implements ActionListener, KeyListener{
 					apw = new AePlayWave("src/music/bgm.wav");
 					apw.start();
 					check = NOTSTART;
+					timer_win.schedule(task_win, 0, 1000);
 				}
 				
 			}
@@ -215,6 +285,7 @@ public class Launcher extends JFrame implements ActionListener, KeyListener{
 					apw = new AePlayWave("src/music/bgm.wav");
 					apw.start();
 					check = NOTSTART;
+					timer_win.schedule(task_win, 0, 1000);
 				}
 			}
 			else if (start.choose==StartScreen.CLIENT) {
@@ -235,6 +306,8 @@ public class Launcher extends JFrame implements ActionListener, KeyListener{
 					apw = new AePlayWave("src/music/bgm.wav");
 					apw.start();
 					check=START;
+					winner_1p.setVisible(false);
+					winner_2p.setVisible(false);
 				}
 				else if (start.choose==StartScreen.PLAYER2) {
 					game2P.stop();
@@ -244,6 +317,8 @@ public class Launcher extends JFrame implements ActionListener, KeyListener{
 					apw = new AePlayWave("src/music/bgm.wav");
 					apw.start();
 					check=START;
+					winner_1p.setVisible(false);
+					winner_2p.setVisible(false);
 				}
 				else if (start.choose==StartScreen.SERVER) {
 					gameServer.stop();
@@ -253,6 +328,8 @@ public class Launcher extends JFrame implements ActionListener, KeyListener{
 					apw = new AePlayWave("src/music/bgm.wav");
 					apw.start();
 					check=START;
+					winner_1p.setVisible(false);
+					winner_2p.setVisible(false);
 				}
 				else if (start.choose==StartScreen.CLIENT) {
 					gameClient.stop();
@@ -262,6 +339,8 @@ public class Launcher extends JFrame implements ActionListener, KeyListener{
 					apw = new AePlayWave("src/music/bgm.wav");
 					apw.start();
 					check=START;
+					winner_1p.setVisible(false);
+					winner_2p.setVisible(false);
 				}
 			}
 		}

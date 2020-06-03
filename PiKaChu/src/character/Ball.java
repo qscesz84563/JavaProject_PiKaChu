@@ -21,7 +21,8 @@ public class Ball {
 					  energy_increase = 20;
 		
 	public boolean isPressRestart = false; // for sync restart on both ends
-
+	public int winner_check = 0;
+	
 	private Dictionary<String, Integer> feature_num = new Hashtable<String, Integer>();
 				  
 	public Ball(JFrame frame, Game game, int x, int y, int width, int height) {
@@ -112,6 +113,7 @@ public class Ball {
 				game.getPlayer1P().setLocation(70, 350);
 				game.getPlayer2P().setLocation(810, 350);
 				game.ball.setIcon(game.ball_idle);
+				winner_check = 2;
 			//1P win
 			}else {
 				x = y = 100;
@@ -124,6 +126,7 @@ public class Ball {
 				game.getPlayer1P().setLocation(70, 350);
 				game.getPlayer2P().setLocation(810, 350);
 				game.ball.setIcon(game.ball_idle);
+				winner_check = 1;
 			}
 		}
 	}

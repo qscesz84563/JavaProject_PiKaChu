@@ -11,10 +11,11 @@ import control.KeyManager;
 
 
 public class GameComputerMode extends Game{
-	private Pikachu1P player1_class;
-	private PikachuComputer computer_class;
-	private Ball ball_class;
+	public Pikachu1P player1_class;
+	public PikachuComputer computer_class;
+	public Ball ball_class;
 	private KeyManager keyManager;
+	public Timer timer;
 	
 	public GameComputerMode(JFrame frame, int width, int height) {
 		super(frame, width, height);
@@ -29,7 +30,7 @@ public class GameComputerMode extends Game{
 	}
 	
 	public void start() {
-		Timer timer = new Timer();
+		timer = new Timer();
 		
 		TimerTask task_update = new TimerTask() {
 			@Override

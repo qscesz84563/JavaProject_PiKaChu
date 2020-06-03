@@ -12,8 +12,8 @@ import volleyball.Game;
 public class PikachuComputer extends Player{		
 		private Game game;
 
-		protected Dictionary<String, Integer> feature_num = new Hashtable<String, Integer>();
-		protected Dictionary<String, Boolean> feature_bool = new Hashtable<String, Boolean>();
+		public Dictionary<String, Integer> feature_num = new Hashtable<String, Integer>();
+		public Dictionary<String, Boolean> feature_bool = new Hashtable<String, Boolean>();
 		
 		private  int previouBallX = 0;
 		private  int previouBallY = 0;

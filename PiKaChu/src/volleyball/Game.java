@@ -31,6 +31,10 @@ public abstract class Game{
 	public ImageIcon rball_right_fast = new ImageIcon(getClass().getResource("/image/right40.gif"));
 	public ImageIcon ball_idle = new ImageIcon(getClass().getResource("/image/ball.png"));
 	
+	public JLabel win1p = new JLabel(new ImageIcon(getClass().getResource("/image/1p+1.png")));
+	public JLabel win2p = new JLabel(new ImageIcon(getClass().getResource("/image/2p+1.png")));
+
+	
 	public JLabel[] player1_score1 = new JLabel[]{
 			new JLabel(new ImageIcon(getClass().getResource("/image/score/0.png"))),
 			new JLabel(new ImageIcon(getClass().getResource("/image/score/1.png"))),
@@ -87,6 +91,8 @@ public abstract class Game{
 		this.height = height;
 		this.frame = frame;
 		
+		
+		
 		player1.setSize(120, 120);
 		player1.setLocation(50, 380-30);
 		player1.setVisible(true);
@@ -108,6 +114,18 @@ public abstract class Game{
 		background.setLocation(0, 0);
 		background.setVisible(true);
 		
+		win1p.setSize(250, 111);
+		win1p.setLocation((1000-250)/2, (500-111)/2 - 75);
+		win1p.setVisible(false);
+		
+		win2p.setSize(250, 111);
+		win2p.setLocation((1000-250)/2, (500-111)/2 - 75);
+		win2p.setVisible(false);
+		
+		frame.add(win1p);
+		frame.add(win2p);
+
+		
 		frame.add(player1);
 		frame.add(player2);
 		frame.add(ball);
@@ -122,23 +140,23 @@ public abstract class Game{
 		
 		for(int i = 0; i < 10; i++) {
 			frame.add(player1_score1[i]);
-			player1_score1[i].setVisible(true);
+			player1_score1[i].setVisible(false);
 			player1_score1[i].setSize(100, 100);
 			player1_score1[i].setLocation(90, 30);
 		}
 		
 		for(int i = 0; i < 10; i++) {
 			frame.add(player2_score2[i]);
-			player2_score2[i].setVisible(false);
+			player2_score2[i].setVisible(true);
 			player2_score2[i].setSize(100, 100);
-			player2_score2[i].setLocation(730, 30);
+			player2_score2[i].setLocation(800, 30);
 		}
 		
 		for(int i = 0; i < 10; i++) {
 			frame.add(player2_score1[i]);
 			player2_score1[i].setVisible(true);
 			player2_score1[i].setSize(100, 100);
-			player2_score1[i].setLocation(800, 30);
+			player2_score1[i].setLocation(870, 30);
 		}
 		
 		frame.add(background);
