@@ -56,36 +56,36 @@ public class Launcher extends JFrame implements ActionListener, KeyListener{
 		apw.start();
 		
 		
-		Scanner scan = new Scanner(System.in);
-		String mode = scan.next();
-		
-		if (mode.toLowerCase().equals("2p")) {
-			// 2P mode
-			Game2PMode game2P = new Game2PMode(this, 1000, 500);
-			game2P.start();
-			
-		} else if (mode.toLowerCase().equals("internet1p")) {
-			// Internet Server
-			GameServer gameServer = new GameServer(this, 1000, 500); 
-			gameServer.builtConnection();
-			gameServer.start();
-			
-		} else if (mode.toLowerCase().equals("internet2p")) {
-			 // Client
-			 // get IP & port
-			 String IP = scan.next();
-			 int port = scan.nextInt();
-			 scan.close();
-			
-			 GameClient gameClient = new GameClient(this, 1000, 500);
-			 gameClient.buildConnection(IP, port);
-			 gameClient.start();
-			
-		} else if(mode.toLowerCase().equals("computer")) { 
-			// computer mode
-			GameComputerMode gameComputer = new GameComputerMode(this, 1000, 500);
-			gameComputer.start();
-		}
+//		Scanner scan = new Scanner(System.in);
+//		String mode = scan.next();
+//		
+//		if (mode.toLowerCase().equals("2p")) {
+//			// 2P mode
+//			Game2PMode game2P = new Game2PMode(this, 1000, 500);
+//			game2P.start();
+//			
+//		} else if (mode.toLowerCase().equals("internet1p")) {
+//			// Internet Server
+//			GameServer gameServer = new GameServer(this, 1000, 500); 
+//			gameServer.builtConnection();
+//			gameServer.start();
+//			
+//		} else if (mode.toLowerCase().equals("internet2p")) {
+//			 // Client
+//			 // get IP & port
+//			 String IP = scan.next();
+//			 int port = scan.nextInt();
+//			 scan.close();
+//			
+//			 GameClient gameClient = new GameClient(this, 1000, 500);
+//			 gameClient.buildConnection(IP, port);
+//			 gameClient.start();
+//			
+//		} else if(mode.toLowerCase().equals("computer")) { 
+//			// computer mode
+//			GameComputerMode gameComputer = new GameComputerMode(this, 1000, 500);
+//			gameComputer.start();
+//		}
 		
 	}
 	
