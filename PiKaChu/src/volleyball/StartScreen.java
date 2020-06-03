@@ -122,7 +122,12 @@ public class StartScreen implements KeyListener{
 		frame.remove(player3_2);
 		frame.remove(bigPikachu);
 		frame.remove(blue);
-//		frame.remove(circle1);
+		frame.remove(server);
+		frame.remove(client);
+		frame.remove(server_2);
+		frame.remove(client_2);
+
+		//		frame.remove(circle1);
 //		frame.remove(circle2);
 //		frame.remove(circle3);
 		frame.remove(title);

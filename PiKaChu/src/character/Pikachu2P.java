@@ -149,7 +149,9 @@ public class Pikachu2P extends Player{
 			feature_num.put("x", game.getNet().getLocation().x + game.getNet().getSize().width);
 			game.player2.setLocation(game.getNet().getX() + game.getNet().getWidth(), feature_num.get("y") );
 		}
-			
+		
+		score_update();
+		
 		updateKeyManager();
 	}
 	
@@ -213,5 +215,36 @@ public class Pikachu2P extends Player{
 	
 	public int getScore() {
 		return feature_num.get("score");
+	}
+	
+	public void score_update() {
+		if(feature_num.get("score") == 0) {
+			for(int i = 0; i < 10; i++) {
+				game.player2_score1[i].setVisible(false);
+				game.player2_score2[i].setVisible(false);
+			}
+		}
+		if(feature_num.get("score") > 0) {
+			for(int  j = 0; j <= 9; j++) {
+				if(feature_num.get("score") % 10 == j) {
+					game.player2_score1[j].setVisible(true);
+			        for(int i=0; i<10; i++){
+			        	if(i!=j) 
+			        		game.player2_score1[i].setVisible(false);
+			        }
+				}
+			}
+		}
+		if(feature_num.get("score") >= 10) {
+			for(int j = 0; j <= 90; j+=10) {
+				if(feature_num.get("score") % 100 >= j && feature_num.get("score") % 100 < (j+10)) {
+					game.player2_score2[j/10].setVisible(true);
+			        for(int i=0; i<10; i++){
+			        	if(i != (j/10)) 
+			        		game.player2_score2[i].setVisible(false);
+			        }
+			    }
+			}
+		}
 	}
 }
