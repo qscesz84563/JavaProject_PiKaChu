@@ -30,7 +30,7 @@ public abstract class Game{
 	public ImageIcon rball_right_slow = new ImageIcon(getClass().getResource("/image/rball_right_slow.gif"));
 	public ImageIcon rball_right_fast = new ImageIcon(getClass().getResource("/image/rball_right_fast.gif"));
 	public ImageIcon ball_idle = new ImageIcon(getClass().getResource("/image/ball.png"));
-
+	
 	public int width, height;
 	public JFrame frame;
 	

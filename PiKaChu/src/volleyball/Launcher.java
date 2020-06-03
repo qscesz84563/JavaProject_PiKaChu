@@ -54,7 +54,7 @@ public class Launcher extends JFrame implements ActionListener, KeyListener{
 		start.check_type();	
 		apw = new AePlayWave("src/music/bgm.wav");
 		apw.start();
-
+		
 		/*
 		Scanner scan = new Scanner(System.in);
 		String mode = scan.next();
@@ -89,6 +89,27 @@ public class Launcher extends JFrame implements ActionListener, KeyListener{
 		
 	}
 	
+	public void server() {
+		 JFrame f= new JFrame("Server's window");  
+		 JTextField t1;  
+		 f.setLocation(700, 250);  
+		 f.setSize(300,150);  
+		 f.setLayout(null);  
+		 f.setVisible(true);  
+	}
+	
+	public void client() {
+		JFrame f= new JFrame("Client's window");  
+		JTextField t1;  
+		t1=new JTextField("Please type the IP");  
+		t1.setBounds(40,35, 200,30); 
+		f.setLocation(700, 250);  
+		f.add(t1); 
+		f.setSize(300,150); 
+		f.setLayout(null);  
+		f.setVisible(true);  
+	}
+	
 	@Override
 	public void keyPressed(KeyEvent e) {
 		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
@@ -118,14 +139,29 @@ public class Launcher extends JFrame implements ActionListener, KeyListener{
 				
 			}
 			
-			else if (start.choose==StartScreen.PLAYER3) {
+			else if (start.choose==StartScreen.SERVER) {
 				if (check == START) {
-					apw.stop();
-					start.stop();	
+					apw.stop();	
+					server();
+					
+//					start.stop();
 //					gameServer = new GameServer(this, 1000, 500);
-//					gameClient = new GameClient(this, 1000, 500);
 //					gameServer.start();
+					
+					apw = new AePlayWave("src/music/bgm.wav");
+					apw.start();
+					check = NOTSTART;
+				}
+			}
+			else if (start.choose==StartScreen.CLIENT) {
+				if (check == START) {
+					client();
+					apw.stop();
+//					start.stop();	
+					
+//					gameClient = new GameClient(this, 1000, 500);
 //					gameClient.start();
+					
 					apw = new AePlayWave("src/music/bgm.wav");
 					apw.start();
 					check = NOTSTART;

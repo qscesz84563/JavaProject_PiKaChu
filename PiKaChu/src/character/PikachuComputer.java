@@ -81,16 +81,7 @@ public class PikachuComputer extends Player{
 
 
 			 previouBallX = game.getBallX();
-			 previouBallY = game.getBallY();
-
-
-
-
-			
-			
-			
-			
-			
+			 previouBallY = game.getBallY();			
 			
 			if(game.getKeyManager().up_com & !feature_bool.get("jumping")) {
 				feature_bool.put("jumping", true);

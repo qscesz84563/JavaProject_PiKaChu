@@ -19,11 +19,11 @@ public class Ball {
 	private int moveSpeedX = 0, moveSpeedY = 5, speedY_decrease = 1;
 	private final int vHitRight = 15, vHitLeft = -15, vHitUp = -20,
 					  energy_increase = 20;
-	
+		
 	public boolean isPressRestart = false; // for sync restart on both ends
 
 	private Dictionary<String, Integer> feature_num = new Hashtable<String, Integer>();
-
+				  
 	public Ball(JFrame frame, Game game, int x, int y, int width, int height) {
 		
 		this.frame = frame;
@@ -70,7 +70,7 @@ public class Ball {
 		game.ball.setLocation(x, y);
 		moveSpeedY += speedY_decrease;
 	}
-		
+	
 	public void check_collision_with_border() {
 		//ball going right
 		if(moveSpeedX > 0) {
@@ -92,6 +92,7 @@ public class Ball {
 			}
 		}
 		//up border
+		
 		if(y + moveSpeedY < 0 & moveSpeedY < 0) {
 			y = 0;
 			moveSpeedY = 5;
@@ -152,7 +153,6 @@ public class Ball {
 					moveSpeedX = 5;
 					speedY_decrease = 1;
 					game.ball.setIcon(game.rball_right_slow);
-
 				}
 			}
 		}
@@ -234,7 +234,7 @@ public class Ball {
 	public int getY() {
 		return y;
 	}
-	
+
 	public void setData(Dictionary<String, Integer> feature_num) {
 		this.x = feature_num.get("x");
 		this.y = feature_num.get("y");
