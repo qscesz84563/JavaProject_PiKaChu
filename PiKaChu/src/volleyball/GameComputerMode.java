@@ -73,5 +73,4 @@ public class GameComputerMode extends Game{
 	public int getBallY() {
 		return ball_class.getY();
 	}
-
 }

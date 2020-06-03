@@ -34,6 +34,18 @@ public class Pikachu1P extends Player{
 		feature_bool.put("goingDown", false);
 		feature_bool.put("dashing_left", false);
 		feature_bool.put("dashing_right", false);
+
+		feature_bool.put("up_1P", false);
+		feature_bool.put("up_2P", false);
+		feature_bool.put("down_1P", false);
+		feature_bool.put("down_2P", false);
+		feature_bool.put("right_1P", false);
+		feature_bool.put("right_2P", false);
+		feature_bool.put("left_1P", false);
+		feature_bool.put("left_2P", false);
+		feature_bool.put("spike_1P", false);
+		feature_bool.put("spike_2P", false);
+		feature_bool.put("restart", false);
 	}
 
 	public void update() {
@@ -106,6 +118,7 @@ public class Pikachu1P extends Player{
 				feature_bool.put("goingDown", false);
 			}
 		}
+
 		//dashing left
 		else if(feature_bool.get("dashing_left")) {
 			feature_num.put("x", feature_num.get("x") + feature_num.get("moveSpeedX"));
@@ -148,6 +161,22 @@ public class Pikachu1P extends Player{
 			feature_num.put("x", game.getNet().getLocation().x - feature_num.get("width"));
 			game.player1.setLocation(feature_num.get("x"), feature_num.get("y"));
 		}
+		
+		updateKeyManager();
+	}
+	
+	public void updateKeyManager() {
+		feature_bool.put("up_1P",    game.getKeyManager().up_1P);
+		feature_bool.put("up_2P",    game.getKeyManager().up_2P);
+		feature_bool.put("down_1P",  game.getKeyManager().down_1P);
+		feature_bool.put("down_2P",  game.getKeyManager().down_2P);
+		feature_bool.put("right_1P", game.getKeyManager().right_1P);
+		feature_bool.put("right_2P", game.getKeyManager().right_2P);
+		feature_bool.put("left_1P",  game.getKeyManager().left_1P);
+		feature_bool.put("left_2P",  game.getKeyManager().left_2P);
+		feature_bool.put("spike_1P", game.getKeyManager().spike_1P);
+		feature_bool.put("spike_2P", game.getKeyManager().spike_2P);
+		feature_bool.put("restart",  game.getKeyManager().restart);
 	}
 	
 	public Dictionary<String, Integer> getFeatNum() {
@@ -177,21 +206,17 @@ public class Pikachu1P extends Player{
 		return feature_num.get("hitCount");
 	}
 
-
 	public int getX() {
 		return feature_num.get("x");
 	}
-
 
 	public int getY() {
 		return feature_num.get("y");
 	}
 
-
 	public int getWidth() {
 		return feature_num.get("width");
 	}
-
 
 	public int getHeight() {
 		return feature_num.get("height");

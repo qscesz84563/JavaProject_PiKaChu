@@ -7,11 +7,18 @@ import javax.sound.sampled.*;
 import javax.swing.*;
 //import java.util.Timer;
 
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+
+import java.util.Dictionary;
+import java.util.Hashtable;
 import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 import java.math.*;
+import java.net.Socket;
 
 public class Launcher extends JFrame implements ActionListener, KeyListener{
 
@@ -29,6 +36,7 @@ public class Launcher extends JFrame implements ActionListener, KeyListener{
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		System.out.println("in!");
 		Launcher volleyball_frame = new Launcher();
 		volleyball_frame.setVisible(true);
 	}
@@ -42,32 +50,41 @@ public class Launcher extends JFrame implements ActionListener, KeyListener{
 		setFocusable(true);
 		requestFocusInWindow();
 
-		start = new StartScreen(this,1000,500);
-		start.check_type();	
-		apw = new AePlayWave("src/music/bgm.wav");
-		apw.start();
-//		Scanner scan = new Scanner(System.in);
-//		String mode = scan.next();
-//		
-//		if (mode.toLowerCase().equals("2p")) {
-//			Game2PMode game2P = new Game2PMode(this, 1000, 500);
-//			game2P.start();
-//		} else if (mode.toLowerCase().equals("internet1p")) {
-//			GameServer gameServer = new GameServer(this, 1000, 500);
-//			//GameClient gameClient = new GameClient(this, 1000, 500);
-//			gameServer.start();
-//			// gameClient.start();
-//		} else if (mode.toLowerCase().equals("internet2p")) {
-//			// GameServer gameServer = new GameServer(this, 1000, 500);
-//			GameClient gameClient = new GameClient(this, 1000, 500);
-//			// gameServer.start();
-//			gameClient.start();
-//		} else if(mode.toLowerCase().equals("computer")) {
-//			// GameServer gameServer = new GameServer(this, 1000, 500);
-//			GameComputerMode gameComputer = new GameComputerMode(this, 1000, 500);
-//			// gameServer.start();
-//			gameComputer.start();
-//		}
+//		start = new StartScreen(this,1000,500);
+//		start.check_type();	
+//		apw = new AePlayWave("src/music/bgm.wav");
+//		apw.start();
+
+		Scanner scan = new Scanner(System.in);
+		String mode = scan.next();
+		
+		if (mode.toLowerCase().equals("2p")) {
+			// 2P mode
+			Game2PMode game2P = new Game2PMode(this, 1000, 500);
+			game2P.start();
+			
+		} else if (mode.toLowerCase().equals("internet1p")) {
+			// Internet Server
+			GameServer gameServer = new GameServer(this, 1000, 500); 
+			gameServer.builtConnection();
+			gameServer.start();
+			
+		} else if (mode.toLowerCase().equals("internet2p")) {
+			 // Client
+			 // get IP & port
+			 String IP = scan.next();
+			 int port = scan.nextInt();
+			 scan.close();
+			
+			 GameClient gameClient = new GameClient(this, 1000, 500);
+			 gameClient.buildConnection(IP, port);
+			 gameClient.start();
+			
+		} else if(mode.toLowerCase().equals("computer")) { 
+			// computer mode
+			GameComputerMode gameComputer = new GameComputerMode(this, 1000, 500);
+			gameComputer.start();
+		}
 		
 	}
 	
