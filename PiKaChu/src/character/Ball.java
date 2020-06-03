@@ -203,12 +203,12 @@ public class Ball {
 		
 		if((x > px - width) & (x + width < px + pw + width) & (y > py - height) & (y < 500 - height)) {
 			game.getPlayer2P().setHitCount(hc + 1);
-			if(game.getKeyManager().left_2P) {
+			if(game.getKeyManager().left_2P | game.getKeyManager().left_com) {
 				moveSpeedX = vHitLeft;
 				moveSpeedY = vHitUp;
 				speedY_decrease = 1;
 				game.ball.setIcon(game.rball_left_slow);
-			}else if(game.getKeyManager().right_2P) {
+			}else if(game.getKeyManager().right_2P | game.getKeyManager().right_com) {
 				moveSpeedX = vHitRight;
 				moveSpeedY = vHitUp;
 				game.ball.setIcon(game.rball_right_slow);
@@ -217,7 +217,7 @@ public class Ball {
 				moveSpeedY = vHitUp;
 				speedY_decrease = 1;
 			}
-			if(game.getKeyManager().up_2P & game.getKeyManager().spike_2P) {
+			if((game.getKeyManager().up_2P & game.getKeyManager().spike_2P) | (game.getKeyManager().up_com & game.getKeyManager().spike_com)) {
 				moveSpeedX = game.getPlayer2P().getHitCount() * energy_increase * (-1);
 				moveSpeedY = -10;
 				speedY_decrease = game.getPlayer2P().getHitCount();
