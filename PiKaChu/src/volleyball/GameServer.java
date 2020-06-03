@@ -49,17 +49,34 @@ public class GameServer extends Game{
 		frame.addKeyListener(keyManager);
 	}
 	
+	public String getIP() {
+		// get external IP
+		String temp = "";
+		Socket getIPaddr = new Socket();
+		try {
+			getIPaddr.connect(new InetSocketAddress("google.com", 80));
+			temp = getIPaddr.getLocalAddress().toString();
+			getIPaddr.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return temp;
+	}
+	
+	public int getPort() {
+		return 60000;
+	}
+	
+	
 	public void builtConnection() {
 		try {
 			// open port
 			serverSocket = new ServerSocket(60000);
 			System.out.println("server started...."); 
-			 
-			// get external IP
-//			Socket getIP = new Socket();
-//			getIP.connect(new InetSocketAddress("google.com", 80));
-//			System.out.println(getIP.getLocalAddress()); 
-//			getIP.close();
+			System.out.println(getIP());
+			System.out.println(getPort());
 			
 			// wait for connect
 			clientSocket = serverSocket.accept();
@@ -70,10 +87,6 @@ public class GameServer extends Game{
 		
 			// send test message
 			String tempText = clientInput.readLine();
-			
-			// set IP and Port
-			// this.IP = getIP.getLocalAddress().toString();
-			// this.Port = 60000;
 			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());

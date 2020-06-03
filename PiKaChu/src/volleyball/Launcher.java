@@ -55,7 +55,7 @@ public class Launcher extends JFrame implements ActionListener, KeyListener{
 		apw = new AePlayWave("src/music/bgm.wav");
 		apw.start();
 		
-		/*
+		
 		Scanner scan = new Scanner(System.in);
 		String mode = scan.next();
 		
@@ -85,7 +85,7 @@ public class Launcher extends JFrame implements ActionListener, KeyListener{
 			// computer mode
 			GameComputerMode gameComputer = new GameComputerMode(this, 1000, 500);
 			gameComputer.start();
-		}*/
+		}
 		
 	}
 	
