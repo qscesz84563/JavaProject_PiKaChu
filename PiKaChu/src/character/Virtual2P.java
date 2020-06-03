@@ -24,36 +24,74 @@ public class Virtual2P extends Player{
 		feature_num.put("hitCount", 0);
 		feature_num.put("moveSpeedX", 5);
 		feature_num.put("moveSpeedY", 5);
+		feature_num.put("score", 0);
 		
 		feature_bool.put("jumping", false);
 		feature_bool.put("goingUp", false);
 		feature_bool.put("goingDown", false);
+		
+		feature_bool.put("up_1P", false);
+		feature_bool.put("up_2P", false);
+		feature_bool.put("down_1P", false);
+		feature_bool.put("down_2P", false);
+		feature_bool.put("right_1P", false);
+		feature_bool.put("right_2P", false);
+		feature_bool.put("left_1P", false);
+		feature_bool.put("left_2P", false);
+		feature_bool.put("spike_1P", false);
+		feature_bool.put("spike_2P", false);
+		feature_bool.put("restart", false);
 	}
 	
 	public void update() {
 		// up_2P
-		if(feature_bool.get("up_2P") & !feature_bool.get("jumping")) {
+		if(feature_bool.get("up_2P") & !feature_bool.get("jumping") & !feature_bool.get("dashing_left") & !feature_bool.get("dashing_right")) {
 			feature_bool.put("jumping", true);
 			feature_bool.put("goingUp", true);
 			feature_bool.put("goingDown", false);
 		}
 		
 		// left_2P
-		if(feature_bool.get("left_2P")) {
-			feature_num.put("moveSpeedX", -7);
-			feature_num.put("x", feature_num.get("x") + feature_num.get("moveSpeedX"));
-			
-			game.player2.setLocation(feature_num.get("x"), feature_num.get("y"));
+		if(feature_bool.get("left_2P") & !feature_bool.get("dashing_left") & !feature_bool.get("dashing_right")) {
+			if(game.getKeyManager().dash_2P & !feature_bool.get("jumping")) {
+				game.player2.setIcon(game.dash_left);
+				game.player2.setSize(144, 100);
+				feature_num.put("width", 144);
+				feature_num.put("height", 100);
+				game.player2.setLocation(feature_num.get("x"), feature_num.get("y"));
+				feature_bool.put("dashing_left", true);
+				feature_num.put("moveSpeedX", -10);
+				feature_num.put("moveSpeedY", 2);
+			}
+			else {
+				feature_num.put("moveSpeedX", -7);
+				feature_num.put("x", feature_num.get("x") + feature_num.get("moveSpeedX"));
+				
+				game.player2.setLocation(feature_num.get("x"), feature_num.get("y"));
+			}
 		}
 		
 		// right_2P
-		if(feature_bool.get("right_2P")){
-			feature_num.put("moveSpeedX", 7);
-			feature_num.put("x", feature_num.get("x") + feature_num.get("moveSpeedX"));
-			
-			game.player2.setLocation(feature_num.get("x"), feature_num.get("y"));
+		if(feature_bool.get("right_2P") & !feature_bool.get("dashing_left") & !feature_bool.get("dashing_right")){
+			if(game.getKeyManager().dash_2P & !feature_bool.get("jumping")) {
+				game.player2.setIcon(game.dash_right);
+				game.player2.setSize(144, 100);
+				feature_num.put("width", 144);
+				feature_num.put("height", 100);
+				game.player2.setLocation(feature_num.get("x"), feature_num.get("y"));
+				feature_bool.put("dashing_right", true);
+				feature_num.put("moveSpeedX", 10);
+				feature_num.put("moveSpeedY", 2);
+			}
+			else {
+				feature_num.put("moveSpeedX", 7);
+				feature_num.put("x", feature_num.get("x") + feature_num.get("moveSpeedX"));
+				
+				game.player2.setLocation(feature_num.get("x"), feature_num.get("y"));
+			}
 		}
 		
+		// jumping
 		if(feature_bool.get("jumping")) {
 			if(feature_bool.get("goingUp")){
 				feature_num.put("moveSpeedY", -15);
@@ -74,6 +112,20 @@ public class Virtual2P extends Player{
 				feature_bool.put("goingDown", false);
 			}
 		}
+		else if(feature_bool.get("dashing_left")) {
+			game.player2.setIcon(game.dash_left);
+			game.player2.setSize(144, 100);
+			feature_num.put("x", feature_num.get("x") + feature_num.get("moveSpeedX"));
+			feature_num.put("y", feature_num.get("y") + feature_num.get("moveSpeedY"));
+			game.player2.setLocation(feature_num.get("x"), feature_num.get("y"));
+		}
+		else if(feature_bool.get("dashing_right")) {
+			game.player2.setIcon(game.dash_right);
+			game.player2.setSize(144, 100);
+			feature_num.put("x", feature_num.get("x") + feature_num.get("moveSpeedX"));
+			feature_num.put("y", feature_num.get("y") + feature_num.get("moveSpeedY"));
+			game.player2.setLocation(feature_num.get("x"), feature_num.get("y"));
+		}
 		
 		//check out of border
 		if(feature_num.get("x") > game.width - feature_num.get("width")) {
@@ -87,8 +139,17 @@ public class Virtual2P extends Player{
 		}
 		
 		if(feature_num.get("y") > game.height - feature_num.get("height") - 30) {
-			feature_num.put("y", game.height -feature_num.get("height") - 30);
+			feature_num.put("width", 120);
+			feature_num.put("height", 120);
+			feature_num.put("y", game.height - feature_num.get("height") - 30);
 			game.player2.setLocation(feature_num.get("x"), feature_num.get("y"));
+			game.player2.setIcon(game.player2_idle);
+			game.player2.setSize(120, 120);
+			feature_bool.put("dashing_left", false);
+			feature_bool.put("dashing_right", false);
+			feature_bool.put("jumping", false);
+			feature_num.put("moveSpeedX", 0);
+			feature_num.put("moveSpeedY", 0);
 		}
 		
 		//check touch net 

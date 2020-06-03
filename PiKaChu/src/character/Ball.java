@@ -2,6 +2,8 @@ package character;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.Dictionary;
+import java.util.Hashtable;
 
 import javax.swing.JFrame;
 
@@ -18,6 +20,10 @@ public class Ball {
 	private final int vHitRight = 15, vHitLeft = -15, vHitUp = -20,
 					  energy_increase = 20;
 	
+	public boolean isPressRestart = false; // for sync restart on both ends
+
+	private Dictionary<String, Integer> feature_num = new Hashtable<String, Integer>();
+
 	public Ball(JFrame frame, Game game, int x, int y, int width, int height) {
 		
 		this.frame = frame;
@@ -27,12 +33,17 @@ public class Ball {
 		this.width = width;
 		this.height = height;
 		
+		feature_num.put("x", this.x);
+		feature_num.put("y", this.y);
+		feature_num.put("width", this.width);
+		feature_num.put("height", this.height);
+		feature_num.put("moveSpeedX", this.moveSpeedX);
+		feature_num.put("moveSpeedY", this.moveSpeedY);
 	}
 	
 	public void update() {	
 		//restart
-		if(game.getKeyManager().restart) {
-			
+		if(game.getKeyManager().restart || isPressRestart) {			
 			x = y = 100;
 			moveSpeedX = 0;
 			moveSpeedY = 5;
@@ -43,6 +54,7 @@ public class Ball {
 			game.getPlayer2P().setScore(0);
 			game.getPlayer1P().setLocation(70, 350);
 			game.getPlayer2P().setLocation(810, 350);
+			isPressRestart = false;
 			game.ball.setIcon(game.ball_idle);
 		}
 		//check hit net
@@ -58,9 +70,7 @@ public class Ball {
 		game.ball.setLocation(x, y);
 		moveSpeedY += speedY_decrease;
 	}
-	
-	
-	
+		
 	public void check_collision_with_border() {
 		//ball going right
 		if(moveSpeedX > 0) {
@@ -223,5 +233,24 @@ public class Ball {
 	
 	public int getY() {
 		return y;
+	}
+	
+	public void setData(Dictionary<String, Integer> feature_num) {
+		this.x = feature_num.get("x");
+		this.y = feature_num.get("y");
+		this.width = feature_num.get("width");
+		this.height = feature_num.get("height");
+		this.moveSpeedX = feature_num.get("moveSpeedX");
+		this.moveSpeedY = feature_num.get("moveSpeedY");
+	}
+	
+	public Dictionary<String, Integer> getFeatNum() {
+		feature_num.put("x", this.x);
+		feature_num.put("y", this.y);
+		feature_num.put("width", this.width);
+		feature_num.put("height", this.height);
+		feature_num.put("moveSpeedX", this.moveSpeedX);
+		feature_num.put("moveSpeedY", this.moveSpeedY);
+		return feature_num;
 	}
 }

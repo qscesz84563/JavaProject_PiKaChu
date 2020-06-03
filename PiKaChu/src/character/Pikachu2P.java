@@ -33,6 +33,18 @@ public class Pikachu2P extends Player{
 		feature_bool.put("goingDown", false);
 		feature_bool.put("dashing_left", false);
 		feature_bool.put("dashing_right", false);
+
+		feature_bool.put("up_1P", false);
+		feature_bool.put("up_2P", false);
+		feature_bool.put("down_1P", false);
+		feature_bool.put("down_2P", false);
+		feature_bool.put("right_1P", false);
+		feature_bool.put("right_2P", false);
+		feature_bool.put("left_1P", false);
+		feature_bool.put("left_2P", false);
+		feature_bool.put("spike_1P", false);
+		feature_bool.put("spike_2P", false);
+		feature_bool.put("restart", false);
 	}
 	public void update() {
 		if(game.getKeyManager().up_2P & !feature_bool.get("jumping") & !feature_bool.get("dashing_left") & !feature_bool.get("dashing_right")) {
@@ -137,6 +149,22 @@ public class Pikachu2P extends Player{
 			feature_num.put("x", game.getNet().getLocation().x + game.getNet().getSize().width);
 			game.player2.setLocation(game.getNet().getX() + game.getNet().getWidth(), feature_num.get("y") );
 		}
+			
+		updateKeyManager();
+	}
+	
+	public void updateKeyManager() {
+		feature_bool.put("up_1P",    game.getKeyManager().up_1P);
+		feature_bool.put("up_2P",    game.getKeyManager().up_2P);
+		feature_bool.put("down_1P",  game.getKeyManager().down_1P);
+		feature_bool.put("down_2P",  game.getKeyManager().down_2P);
+		feature_bool.put("right_1P", game.getKeyManager().right_1P);
+		feature_bool.put("right_2P", game.getKeyManager().right_2P);
+		feature_bool.put("left_1P",  game.getKeyManager().left_1P);
+		feature_bool.put("left_2P",  game.getKeyManager().left_2P);
+		feature_bool.put("spike_1P", game.getKeyManager().spike_1P);
+		feature_bool.put("spike_2P", game.getKeyManager().spike_2P);
+		feature_bool.put("restart",  game.getKeyManager().restart);
 	}
 	
 	public Dictionary<String, Integer> getFeatNum() {

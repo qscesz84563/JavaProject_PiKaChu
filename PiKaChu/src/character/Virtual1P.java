@@ -24,31 +24,76 @@ public class Virtual1P extends Player{
 		feature_num.put("hitCount", 0);
 		feature_num.put("moveSpeedX", 5);
 		feature_num.put("moveSpeedY", 5);
+		feature_num.put("score", 0);
 		
 		feature_bool.put("jumping", false);
 		feature_bool.put("goingUp", false);
 		feature_bool.put("goingDown", false);
+		feature_bool.put("dashing_left", false);
+		feature_bool.put("dashing_right", false);
+		
+		feature_bool.put("up_1P", false);
+		feature_bool.put("up_2P", false);
+		feature_bool.put("down_1P", false);
+		feature_bool.put("down_2P", false);
+		feature_bool.put("right_1P", false);
+		feature_bool.put("right_2P", false);
+		feature_bool.put("left_1P", false);
+		feature_bool.put("left_2P", false);
+		feature_bool.put("spike_1P", false);
+		feature_bool.put("spike_2P", false);
+		feature_bool.put("restart", false);
 	}
 	
 	public void update() {
-		if(feature_bool.get("up_1P") & !feature_bool.get("jumping")) {
+		// up_1P, can't jump when dashing
+		if(feature_bool.get("up_1P") & !feature_bool.get("jumping") & !feature_bool.get("dashing_left") & !feature_bool.get("dashing_right")) {
 			feature_bool.put("jumping", true);
 			feature_bool.put("goingUp", true);
 			feature_bool.put("goingDown", false);
 		}
 		
-		if(feature_bool.get("left_1P")) {
-			feature_num.put("moveSpeedX", -7);
-			feature_num.put("x", feature_num.get("x") + feature_num.get("moveSpeedX"));
-			
-			game.player1.setLocation(feature_num.get("x"), feature_num.get("y"));
+		// left_1P, can't move when dashing
+		if(feature_bool.get("left_1P") & !feature_bool.get("dashing_left") & !feature_bool.get("dashing_right")) {
+			if(game.getKeyManager().dash_1P & !feature_bool.get("jumping")) {
+				game.player1.setIcon(game.dash_left);
+				game.player1.setSize(144, 100);
+				feature_num.put("width", 144);
+				feature_num.put("height", 100);
+				game.player1.setLocation(feature_num.get("x"), feature_num.get("y"));
+				feature_bool.put("dashing_left", true);
+				feature_num.put("moveSpeedX", -10);
+				feature_num.put("moveSpeedY", 2);
+			}
+			else {
+				feature_num.put("moveSpeedX", -7);
+				feature_num.put("x", feature_num.get("x") + feature_num.get("moveSpeedX"));
+				
+				game.player1.setLocation(feature_num.get("x"), feature_num.get("y"));
+			}
 		}
-		if(feature_bool.get("right_1P")){
-			feature_num.put("moveSpeedX", 7);
-			feature_num.put("x", feature_num.get("x") + feature_num.get("moveSpeedX"));
-			
-			game.player1.setLocation(feature_num.get("x"), feature_num.get("y"));
+		
+		// right_1P
+		if(feature_bool.get("right_1P") & !feature_bool.get("dashing_left") & !feature_bool.get("dashing_right")){
+			if(game.getKeyManager().dash_1P & !feature_bool.get("jumping")) {
+				game.player1.setIcon(game.dash_right);
+				game.player1.setSize(144, 100);
+				feature_num.put("width", 144);
+				feature_num.put("height", 100);
+				game.player1.setLocation(feature_num.get("x"), feature_num.get("y"));
+				feature_bool.put("dashing_right", true);
+				feature_num.put("moveSpeedX", 10);
+				feature_num.put("moveSpeedY", 2);
+			}
+			else {
+				feature_num.put("moveSpeedX", 7);
+				feature_num.put("x", feature_num.get("x") + feature_num.get("moveSpeedX"));
+				
+				game.player1.setLocation(feature_num.get("x"), feature_num.get("y"));
+			}
 		}
+		
+		// jumping
 		if(feature_bool.get("jumping")) {
 			if(feature_bool.get("goingUp")){
 				feature_num.put("moveSpeedY", -15);
@@ -71,6 +116,22 @@ public class Virtual1P extends Player{
 			}
 		}
 		
+		//dashing left
+		else if(feature_bool.get("dashing_left")) {
+			game.player1.setIcon(game.dash_left);
+			game.player1.setSize(144, 100);
+			feature_num.put("x", feature_num.get("x") + feature_num.get("moveSpeedX"));
+			feature_num.put("y", feature_num.get("y") + feature_num.get("moveSpeedY"));
+			game.player1.setLocation(feature_num.get("x"), feature_num.get("y"));
+		}
+		else if(feature_bool.get("dashing_right")) {
+			game.player1.setIcon(game.dash_right);
+			game.player1.setSize(144, 100);
+			feature_num.put("x", feature_num.get("x") + feature_num.get("moveSpeedX"));
+			feature_num.put("y", feature_num.get("y") + feature_num.get("moveSpeedY"));
+			game.player1.setLocation(feature_num.get("x"), feature_num.get("y"));
+		}
+		
 		//check out of border
 		if(feature_num.get("x") < 0) {
 			feature_num.put("x", 0);
@@ -83,8 +144,17 @@ public class Virtual1P extends Player{
 		}
 			
 		if(feature_num.get("y") > game.height - feature_num.get("height") -30) {
+			feature_num.put("width", 120);
+			feature_num.put("height", 120);
 			feature_num.put("y", game.height - feature_num.get("height") - 30);
 			game.player1.setLocation(feature_num.get("x"), feature_num.get("y"));
+			game.player1.setIcon(game.player1_idle);
+			game.player1.setSize(120, 120);
+			feature_bool.put("dashing_left", false);
+			feature_bool.put("dashing_right", false);
+			feature_bool.put("jumping", false);
+			feature_num.put("moveSpeedX", 0);
+			feature_num.put("moveSpeedY", 0);
 		}
 			
 		//check touch net 
@@ -129,29 +199,29 @@ public class Virtual1P extends Player{
 	@Override
 	public int getX() {
 		// TODO Auto-generated method stub
-		return 0;
+		return feature_num.get("x");
 	}
 	@Override
 	public int getY() {
 		// TODO Auto-generated method stub
-		return 0;
+		return feature_num.get("y");
 	}
 	
 	@Override
 	public int getHeight() {
 		// TODO Auto-generated method stub
-		return 0;
+		return feature_num.get("height");
 	}
 	
 	@Override
 	public int getHitCount() {
 		// TODO Auto-generated method stub
-		return 0;
+		return feature_num.get("hitCount");
 	}
 	@Override
 	public int getWidth() {
 		// TODO Auto-generated method stub
-		return 0;
+		return feature_num.get("width");
 	}
 	
 	public int getScore() {
