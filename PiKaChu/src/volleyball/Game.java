@@ -25,6 +25,12 @@ public abstract class Game{
 	public ImageIcon player2_idle = new ImageIcon(getClass().getResource("/image/2P.gif"));
 	public ImageIcon dash_left = new ImageIcon(getClass().getResource("/image/dash_left.png"));
 	public ImageIcon dash_right = new ImageIcon(getClass().getResource("/image/dash_right.png"));
+	public ImageIcon rball_left_slow = new ImageIcon(getClass().getResource("/image/rball_left_slow.gif"));
+	public ImageIcon rball_left_fast = new ImageIcon(getClass().getResource("/image/rball_left_fast.gif"));
+	public ImageIcon rball_right_slow = new ImageIcon(getClass().getResource("/image/rball_right_slow.gif"));
+	public ImageIcon rball_right_fast = new ImageIcon(getClass().getResource("/image/rball_right_fast.gif"));
+	public ImageIcon ball_idle = new ImageIcon(getClass().getResource("/image/ball.png"));
+
 	public int width, height;
 	public JFrame frame;
 	

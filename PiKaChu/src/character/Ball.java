@@ -43,6 +43,7 @@ public class Ball {
 			game.getPlayer2P().setScore(0);
 			game.getPlayer1P().setLocation(70, 350);
 			game.getPlayer2P().setLocation(810, 350);
+			game.ball.setIcon(game.ball_idle);
 		}
 		//check hit net
 		check_collision_with_net();
@@ -63,26 +64,30 @@ public class Ball {
 	public void check_collision_with_border() {
 		//ball going right
 		if(moveSpeedX > 0) {
+			//right border
 			if(x + width + moveSpeedX > game.width) {
 				x = game.width - width;
 				moveSpeedX = -5;
 				speedY_decrease = 1;
+				game.ball.setIcon(game.rball_right_slow);
 			}
 		}
 		else if(moveSpeedX < 0) {
+			//left border
 			if(x + moveSpeedX < 0) {
 				x = 0;
 				moveSpeedX = 5;
 				speedY_decrease = 1;
+				game.ball.setIcon(game.rball_left_slow);
 			}
 		}
-		
+		//up border
 		if(y + moveSpeedY < 0 & moveSpeedY < 0) {
 			y = 0;
 			moveSpeedY = 5;
 			speedY_decrease = 1;
 		}
-		else if(y + height > 500 - 30) {
+		else if(y + height > 500 - 30) {//touch the floor
 			//2P win
 			if(x < game.getNet().getLocation().x) {
 				x = 900 - width;
@@ -95,6 +100,7 @@ public class Ball {
 				game.getPlayer2P().setScore(game.getPlayer2P().getScore() + 1);
 				game.getPlayer1P().setLocation(70, 350);
 				game.getPlayer2P().setLocation(810, 350);
+				game.ball.setIcon(game.ball_idle);
 			//1P win
 			}else {
 				x = y = 100;
@@ -106,6 +112,7 @@ public class Ball {
 				game.getPlayer1P().setScore(game.getPlayer1P().getScore() + 1);
 				game.getPlayer1P().setLocation(70, 350);
 				game.getPlayer2P().setLocation(810, 350);
+				game.ball.setIcon(game.ball_idle);
 			}
 		}
 	}
@@ -117,20 +124,25 @@ public class Ball {
 		int nh = game.getNet().getSize().height;
 		
 		if(moveSpeedX > 0) {
+			//left side of net
 			if((x + width + moveSpeedX > nx) & (x + width + moveSpeedX < nx + nw + width)) {
 				if(y + height / 2 + moveSpeedY > ny) {
 					x = nx - width;
 					moveSpeedX = -5;
 					speedY_decrease = 1;
+					game.ball.setIcon(game.rball_left_slow);
 				}
 			}
 		}
 		else if(moveSpeedX < 0){
+			//right side of net
 			if((x + moveSpeedX < nx + nw) & (x + moveSpeedX > nx - width)) {
 				if(y + height / 2 + moveSpeedY > ny) {
 					x = nx + nw;
 					moveSpeedX = 5;
 					speedY_decrease = 1;
+					game.ball.setIcon(game.rball_right_slow);
+
 				}
 			}
 		}
@@ -145,24 +157,30 @@ public class Ball {
 		if((x > px - width) & (x + width < px + pw + width) & (y > py - height) & (y < 500 - height)) {
 			game.getPlayer1P().setHitCount(hc + 1);
 			if(game.getKeyManager().left_1P) {
+				//ball going left
 				moveSpeedX = vHitLeft;
 				moveSpeedY = vHitUp;
 				speedY_decrease = 1;
+				game.ball.setIcon(game.rball_left_slow);
 			}else if(game.getKeyManager().right_1P) {
+				//ball going right
 				moveSpeedX = vHitRight;
 				moveSpeedY = vHitUp;
 				speedY_decrease = 1;
-
+				game.ball.setIcon(game.rball_right_slow);
 			}else {
+				//stay on the top of player
 				moveSpeedX = 0;
 				moveSpeedY = vHitUp;
 				speedY_decrease = 1;
 			}
 			if(game.getKeyManager().up_1P & game.getKeyManager().spike_1P) {
+				//spike to the right, speed value is depend on hit counts
 				moveSpeedX = game.getPlayer1P().getHitCount() * energy_increase;
 				moveSpeedY = -10;
 				speedY_decrease = game.getPlayer1P().getHitCount();
 				game.getPlayer1P().setHitCount(0);
+				game.ball.setIcon(game.rball_right_fast);
 			}
 		}
 	}
@@ -179,9 +197,11 @@ public class Ball {
 				moveSpeedX = vHitLeft;
 				moveSpeedY = vHitUp;
 				speedY_decrease = 1;
+				game.ball.setIcon(game.rball_left_slow);
 			}else if(game.getKeyManager().right_2P) {
 				moveSpeedX = vHitRight;
 				moveSpeedY = vHitUp;
+				game.ball.setIcon(game.rball_right_slow);
 			}else {
 				moveSpeedX = 0;
 				moveSpeedY = vHitUp;
@@ -192,6 +212,7 @@ public class Ball {
 				moveSpeedY = -10;
 				speedY_decrease = game.getPlayer2P().getHitCount();
 				game.getPlayer2P().setHitCount(0);
+				game.ball.setIcon(game.rball_left_fast);
 			}
 		}
 	}
