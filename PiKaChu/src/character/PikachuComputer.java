@@ -42,42 +42,47 @@ public class PikachuComputer extends Player{
 			speedBallY = game.getBallY() - previouBallY;
 			
 			if(game.getBallX() < 500) {
+				game.getKeyManager().spike_com = false;
 				if(feature_num.get("x") < 750) {
-					game.getKeyManager().right_2P=true;
-					game.getKeyManager().left_2P=false;
+					System.out.println("1");
+					game.getKeyManager().right_com=true;
+					game.getKeyManager().left_com=false;
 				}else if(feature_num.get("x") > 780) {
-					game.getKeyManager().left_2P=true;
-					game.getKeyManager().right_2P=false;
+					System.out.println("2");
+					game.getKeyManager().left_com=true;
+					game.getKeyManager().right_com=false;
+				}else {
+					System.out.println("3");
+					game.getKeyManager().left_com=false;
+					game.getKeyManager().right_com=false;
 				}
 			}			
 			else {
 				if(feature_num.get("x") < game.getBallX() ) {
-					game.getKeyManager().right_2P=true;
-					game.getKeyManager().left_2P=false;
-					//System.out.println( "right");
-				}else if(feature_num.get("x") > game.getBallX()) {
-					game.getKeyManager().left_2P=true;
-					game.getKeyManager().right_2P=false;
-					//System.out.println( "left");
+					game.getKeyManager().right_com=true;
+					game.getKeyManager().left_com=false;
+				}else if(feature_num.get("x") > game.getBallX() + 80) {
+					game.getKeyManager().left_com=true;
+					game.getKeyManager().right_com=false;
+				}else {
+					game.getKeyManager().up_com=true;
+					game.getKeyManager().left_com=false;
+					game.getKeyManager().right_com=false;
+				}
 				
-				if( Math.abs(feature_num.get("x")-game.getBallX() ) < 30 ) {
-					//System.out.println(game.getBallY());
+				if( Math.abs(feature_num.get("x")-game.getBallX()) < 30 ) {
+					System.out.println("7");
 					double random = Math.random() ;
 					if(random < 0.5 & game.getBallY() > 230  ) {
-						game.getKeyManager().up_2P=true;
-						game.getKeyManager().spike_2P=true;	
-						//System.out.println("spike");
-					}else  if (random < 1 & game.getBallY() > 230 ) {		
-						game.getKeyManager().up_2P=true;	
-						//System.out.println("up");
-					}else {
-						game.getKeyManager().left_2P=false;
-						game.getKeyManager().right_2P=false;
+						game.getKeyManager().spike_com=true;	
+					}else  if (random < 1 & game.getBallY() > 230 ) {	
+						game.getKeyManager().spike_com=false;	
+						game.getKeyManager().left_com=true;
 					}
-					//System.out.println( "up");
-
+					
+					System.out.println(game.getKeyManager().up_com + " " + game.getKeyManager().spike_com);
 				}
-				}
+				
 			}
 
 
@@ -93,18 +98,18 @@ public class PikachuComputer extends Player{
 			
 			
 			
-			if(game.getKeyManager().up_2P & !feature_bool.get("jumping")) {
+			if(game.getKeyManager().up_com & !feature_bool.get("jumping")) {
 				feature_bool.put("jumping", true);
 				feature_bool.put("goingUp", true);
 				feature_bool.put("goingDown", false);
 			}
-			if(game.getKeyManager().left_2P) {
+			if(game.getKeyManager().left_com) {
 				feature_num.put("moveSpeedX", -7);
 				feature_num.put("x", feature_num.get("x") + feature_num.get("moveSpeedX"));
 				
 				game.player2.setLocation(feature_num.get("x"), feature_num.get("y"));
 			}
-			if(game.getKeyManager().right_2P){
+			if(game.getKeyManager().right_com){
 				feature_num.put("moveSpeedX", 7);
 				feature_num.put("x", feature_num.get("x") + feature_num.get("moveSpeedX"));
 				
@@ -128,6 +133,7 @@ public class PikachuComputer extends Player{
 				if(feature_num.get("y") + feature_num.get("height") >= game.height) {
 					feature_bool.put("jumping", false);
 					feature_bool.put("goingDown", false);
+					game.getKeyManager().up_com = false;
 				}
 			}
 			
