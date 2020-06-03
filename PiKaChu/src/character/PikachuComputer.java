@@ -44,15 +44,12 @@ public class PikachuComputer extends Player{
 			if(game.getBallX() < 500) {
 				game.getKeyManager().spike_com = false;
 				if(feature_num.get("x") < 750) {
-					System.out.println("1");
 					game.getKeyManager().right_com=true;
 					game.getKeyManager().left_com=false;
 				}else if(feature_num.get("x") > 780) {
-					System.out.println("2");
 					game.getKeyManager().left_com=true;
 					game.getKeyManager().right_com=false;
 				}else {
-					System.out.println("3");
 					game.getKeyManager().left_com=false;
 					game.getKeyManager().right_com=false;
 				}
@@ -70,17 +67,14 @@ public class PikachuComputer extends Player{
 					game.getKeyManager().right_com=false;
 				}
 				
-				if( Math.abs(feature_num.get("x")-game.getBallX()) < 30 ) {
-					System.out.println("7");
+				if( Math.abs(feature_num.get("x")-game.getBallX()) < 80 ) {
 					double random = Math.random() ;
-					if(random < 0.5 & game.getBallY() > 230  ) {
+					if(random < 0.5) {
 						game.getKeyManager().spike_com=true;	
-					}else  if (random < 1 & game.getBallY() > 230 ) {	
+					}else{	
 						game.getKeyManager().spike_com=false;	
 						game.getKeyManager().left_com=true;
 					}
-					
-					System.out.println(game.getKeyManager().up_com + " " + game.getKeyManager().spike_com);
 				}
 				
 			}

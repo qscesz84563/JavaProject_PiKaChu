@@ -97,7 +97,7 @@ public class Ball {
 			moveSpeedY = 5;
 			speedY_decrease = 1;
 		}
-		else if(y + height > 500 - 30) {//touch the floor
+		else if(y + height >= 500 - 30) {//touch the floor
 			//2P win
 			if(x < game.getNet().getLocation().x) {
 				x = 900 - width;

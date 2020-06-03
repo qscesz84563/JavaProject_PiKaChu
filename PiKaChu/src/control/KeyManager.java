@@ -8,7 +8,8 @@ public class KeyManager implements KeyListener{
 	private boolean keys[];
 	public boolean up_1P, up_2P, down_1P, down_2P, right_1P,
 				   right_2P, left_1P, left_2P, spike_1P, spike_2P, 
-				   restart, pause, dash_1P, dash_2P; 
+				   restart, pause, dash_1P, dash_2P, 
+				   up_com, left_com, right_com, spike_com;
 	
 	public KeyManager() {
 		keys = new boolean[256];
