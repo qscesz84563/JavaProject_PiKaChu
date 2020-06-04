@@ -140,21 +140,21 @@ public class Launcher extends JFrame implements ActionListener, KeyListener{
 			public void run() {				
 				if (check == NOTSTART) {
 					if (start.choose==StartScreen.PLAYER1) {
-						if(gameComputer.player1_class.feature_num.get("score") >= 10) {
+						if(gameComputer.player1_class.feature_num.get("score") >= 3) {
 							gameComputer.timer.cancel();
 							winner_1p.setVisible(true);
 						}
-						else if(gameComputer.computer_class.feature_num.get("score") >= 10) {
+						else if(gameComputer.computer_class.feature_num.get("score") >= 3) {
 							gameComputer.timer.cancel();
 							winner_2p.setVisible(true);
 						}
 					}
 					else if (start.choose==StartScreen.PLAYER2) {
-						if(game2P.player1_class.feature_num.get("score") >= 10) {
+						if(game2P.player1_class.feature_num.get("score") >= 3) {
 							game2P.timer.cancel();
 							winner_1p.setVisible(true);
 						}
-						else if(game2P.player2_class.feature_num.get("score") >= 10) {
+						else if(game2P.player2_class.feature_num.get("score") >= 3) {
 							game2P.timer.cancel();
 							winner_2p.setVisible(true);
 						}
@@ -162,21 +162,21 @@ public class Launcher extends JFrame implements ActionListener, KeyListener{
 					
 					
 					else if (start.choose==StartScreen.SERVER) {
-						if(gameServer.player1_class.getFeatNum().get("score") >= 10) {
+						if(gameServer.player1_class.getFeatNum().get("score") >= 3) {
 							gameServer.timer.cancel();
 							winner_1p.setVisible(true);
 						}
-						else if(gameServer.player2_class.getFeatNum().get("score") >= 10) {
+						else if(gameServer.player2_class.getFeatNum().get("score") >= 3) {
 							gameServer.timer.cancel();
 							winner_2p.setVisible(true);
 						}
 					}
 					else if (start.choose==StartScreen.CLIENT) {
-						if(gameClient.player1_class.getFeatNum().get("score") >= 10) {
+						if(gameClient.player1_class.getFeatNum().get("score") >= 3) {
 							gameClient.timer.cancel();
 							winner_1p.setVisible(true);
 						}
-						else if(gameClient.player2_class.getFeatNum().get("score") >= 10) {
+						else if(gameClient.player2_class.getFeatNum().get("score") >= 3) {
 							gameClient.timer.cancel();
 							winner_2p.setVisible(true);
 						}

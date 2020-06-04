@@ -53,9 +53,9 @@ public class Game2PMode extends Game{
 				
 				if(ball_class.winner_check != 0) {
 					if(ball_class.winner_check == 1)
-						win1p.setVisible(true);
+						win1p.setVisible(false);
 					else
-						win2p.setVisible(true);
+						win2p.setVisible(false);
 					winner_time_count++;
 					winner_pause = 1;
 					if(winner_time_count == 10) {
